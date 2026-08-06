@@ -314,6 +314,7 @@ input[type="checkbox"] {
     font-family: var(--font-family-mono);
     font-size: var(--font-size-body-sm);
     color: var(--color-secondary-gray);
+    overflow-wrap: anywhere;
 }
 
 .tool-card-badge {
@@ -355,6 +356,16 @@ input[type="checkbox"] {
     color: var(--color-dark-gray);
 }
 
+.tool-card-list {
+    margin-top: var(--spacing-xs);
+    margin-left: 1.1rem;
+    list-style: disc;
+}
+
+.tool-card-list li {
+    margin-bottom: 2px;
+}
+
 .tool-card-inlay--secondary {
     color: var(--color-secondary-gray);
 }
@@ -389,6 +400,42 @@ input[type="checkbox"] {
 @media (min-width: 768px) and (max-width: 1023px) {
     .results-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .header {
+        padding: var(--spacing-m);
+    }
+
+    .app-title {
+        font-size: 1.75rem;
+    }
+
+    .main-content {
+        margin: 0;
+        border-radius: 0;
+        padding: var(--spacing-m);
+    }
+
+    .filter-section {
+        padding: var(--spacing-m);
+    }
+
+    .filter-group {
+        gap: var(--spacing-s);
+    }
+
+    .tool-card {
+        padding: var(--spacing-m);
+    }
+
+    .tool-card-image {
+        height: 160px;
+    }
+
+    .tool-card-save {
+        width: 100%;
     }
 }
 
