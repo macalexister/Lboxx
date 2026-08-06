@@ -191,7 +191,7 @@ window.APP = (() => {
         ui, state, search, results,
         init, performSearch, loadToolsData,
         debug: () => ({ app: this, state: state.exportState(), tools: search.getAllTools(), results: results.getResults() }),
-        getVersion: () => '1.0.0 (Sprint 1, Phase 3)',
+        getVersion: () => '1.0.1 (DE)',
     };
 })();
 
