@@ -1,0 +1,22 @@
+🧪 Testing All Server Options
+==============================
+
+Starting tests...
+
+Testing: Python 3 (port 8000)
+  ❌ FAIL - HTTP 000
+
+Python 3|8000|FAIL
+Testing: Node.js npx (port 8001)
+  ❌ FAIL - HTTP 404
+
+Node.js npx|8001|FAIL
+PHP - Skipped (not installed)
+Testing: Ruby (port 8003)
+  ✅ PASS - HTTP 200
+
+Ruby|8003|PASS
+Go - Skipped (not installed)
+
+==============================
+✓ Test complete

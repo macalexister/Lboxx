@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Development Workflow Test</title>
+</head>
+<body>
+    <h1>✅ Development Workflow Verified</h1>
+    <p>This file was created to test the development workflow.</p>
+    <p id="timestamp">Loading...</p>
+    <p><strong>Instructions:</strong></p>
+    <ol>
+        <li>Edit this file (change the timestamp below)</li>
+        <li>Save the file</li>
+        <li>Refresh browser (F5 or Cmd+R)</li>
+        <li>You should see the updated content</li>
+    </ol>
+    <p id="edit-marker">Last edited: 2026-08-06 13:00:00</p>
+    <script>
+        document.querySelector('#timestamp').textContent = 'Loaded at: ' + new Date().toLocaleString();
+    </script>
+</body>
+</html>

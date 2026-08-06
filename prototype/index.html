@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosch Pro Tool Finder - Interactive Prototype</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066CC;
+            --secondary-blue: #003D99;
+            --accent-green: #00B050;
+            --neutral-white: #FFFFFF;
+            --neutral-light: #F5F5F5;
+            --neutral-medium: #E0E0E0;
+            --neutral-dark: #333333;
+            --focus-outline: 2px solid #0066CC;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--neutral-dark);
+            background-color: var(--neutral-light);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-blue);
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav h1 {
+            color: var(--neutral-white);
+            font-size: 1.25rem;
+            margin-right: auto;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--neutral-white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background 0.2s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: var(--neutral-white);
+            color: var(--primary-blue);
+        }
+
+        nav button:focus {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        /* Main Container */
+        main {
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--neutral-white);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-blue);
+        }
+
+        .btn-primary:focus {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        .btn-secondary {
+            background: var(--neutral-medium);
+            color: var(--neutral-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-secondary:focus {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        /* Flow 1: Search → Detail → Favorite */
+        .search-section {
+            background: var(--neutral-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid var(--neutral-medium);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .search-input:focus {
+            outline: var(--focus-outline);
+            border-color: var(--primary-blue);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tool-card {
+            background: var(--neutral-white);
+            border: 1px solid var(--neutral-medium);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tool-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .tool-card:focus {
+            outline: var(--focus-outline);
+        }
+
+        .tool-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+
+        .tool-card p {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card .details-btn {
+            width: 100%;
+        }
+
+        /* Tool Detail View */
+        .detail-section {
+            background: var(--neutral-white);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .detail-header h2 {
+            color: var(--primary-blue);
+            font-size: 1.75rem;
+        }
+
+        .detail-specs {
+            background: var(--neutral-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .detail-specs h3 {
+            color: var(--neutral-dark);
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--neutral-medium);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--neutral-dark);
+        }
+
+        .spec-value {
+            color: #666;
+        }
+
+        /* Collection Manager Flow */
+        .collection-section {
+            background: var(--neutral-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--neutral-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 2px solid var(--neutral-medium);
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: var(--focus-outline);
+            border-color: var(--primary-blue);
+        }
+
+        .collection-list {
+            list-style: none;
+        }
+
+        .collection-item {
+            background: var(--neutral-light);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collection-item h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .collection-item p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .collection-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .collection-actions button {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* L-Boxx Manager Flow */
+        .lboxx-section {
+            background: var(--neutral-white);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .lboxx-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .lboxx-item {
+            background: var(--neutral-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--neutral-medium);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lboxx-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+        }
+
+        .lboxx-item:focus {
+            outline: var(--focus-outline);
+        }
+
+        .lboxx-item h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .lboxx-item p {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+
+        .lboxx-status {
+            background: var(--accent-green);
+            color: var(--neutral-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--neutral-white);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: var(--primary-blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-dark);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:focus {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 575px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav h1 {
+                margin-right: 0;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            main {
+                padding: 0.75rem;
+            }
+
+            .search-section,
+            .detail-section,
+            .collection-section,
+            .lboxx-section {
+                padding: 1rem;
+            }
+
+            .tools-grid,
+            .lboxx-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-header {
+                flex-direction: column;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lboxx-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Accessibility Focus Indicator */
+        *:focus-visible {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+
+        /* Screen Reader Only Text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Status Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main Navigation">
+        <h1>Bosch Pro Tool Finder</h1>
+        <button class="nav-btn active" data-flow="search" aria-label="Search and Browse Tools">🔍 Search Flow</button>
+        <button class="nav-btn" data-flow="collection" aria-label="Manage Collections">📁 Collections</button>
+        <button class="nav-btn" data-flow="lboxx" aria-label="Organize L-Boxx">📦 L-Boxx</button>
+    </nav>
+
+    <main role="main">
+        <!-- Flow 1: Search → Detail → Favorite -->
+        <section class="screen active" id="search-flow" aria-label="Search and Tool Discovery Flow">
+            <div class="search-section">
+                <h2>🔍 Find Your Tools</h2>
+                <input
+                    type="search"
+                    class="search-input"
+                    id="toolSearch"
+                    placeholder="Search tools (e.g., cordless drill, impact driver)"
+                    aria-label="Search tools by name"
+                />
+                <div id="searchResults" class="tools-grid" role="region" aria-live="polite" aria-label="Search results">
+                    <!-- Tools populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Detail Modal -->
+        <div class="modal" id="detailModal" role="dialog" aria-labelledby="detailTitle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="detailTitle">Tool Details</h2>
+                    <button class="modal-close" id="closeDetail" aria-label="Close tool details">✕</button>
+                </div>
+                <div id="detailContent" class="detail-section">
+                    <!-- Detail content populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Flow 2: Collection Manager -->
+        <section class="screen" id="collection-flow" aria-label="Collection Management Flow">
+            <div class="collection-section">
+                <h2>📁 My Collections</h2>
+                <p>Create and manage your tool collections</p>
+
+                <div class="form-group">
+                    <label for="collectionName">Collection Name</label>
+                    <input
+                        type="text"
+                        id="collectionName"
+                        placeholder="e.g., My Workshop Tools"
+                        aria-describedby="collectionHelp"
+                    />
+                    <small id="collectionHelp">Give your collection a descriptive name</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="collectionDesc">Description (optional)</label>
+                    <textarea
+                        id="collectionDesc"
+                        placeholder="Add notes about this collection..."
+                        rows="3"
+                        aria-describedby="descHelp"
+                    ></textarea>
+                    <small id="descHelp">Help you remember what's in this collection</small>
+                </div>
+
+                <button class="btn btn-primary" id="createCollectionBtn" aria-label="Create new collection">
+                    Create Collection
+                </button>
+
+                <div id="collectionMessage"></div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Your Collections</h3>
+                <ul class="collection-list" id="collectionList" role="region" aria-live="polite" aria-label="List of saved collections">
+                    <!-- Collections populated by JS -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Flow 3: L-Boxx Manager -->
+        <section class="screen" id="lboxx-flow" aria-label="L-Boxx Organization Flow">
+            <div class="lboxx-section">
+                <h2>📦 L-Boxx Organization</h2>
+                <p>Organize your tools in L-Boxx storage systems</p>
+
+                <div class="form-group">
+                    <label for="lboxxSelect">Select L-Boxx Size</label>
+                    <select id="lboxxSelect" aria-describedby="lboxxHelp">
+                        <option value="">-- Choose Size --</option>
+                        <option value="small">L-Boxx 238 (Small)</option>
+                        <option value="medium">L-Boxx 374 (Medium)</option>
+                        <option value="large">L-Boxx 438 (Large)</option>
+                    </select>
+                    <small id="lboxxHelp">Select the L-Boxx you want to organize</small>
+                </div>
+
+                <div class="lboxx-grid" id="lboxxGrid" role="region" aria-label="Available L-Boxx systems">
+                    <!-- L-Boxx items populated by JS -->
+                </div>
+
+                <div id="lboxxMessage"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mock Data
+        const mockTools = [
+            { id: 1, name: 'Cordless Drill', model: 'GSR 18V', specs: 'Power: 18V, Torque: 60Nm, Weight: 1.6kg', lboxx: 'small' },
+            { id: 2, name: 'Impact Driver', model: 'GDR 18V', specs: 'Power: 18V, Max Torque: 180Nm, Weight: 1.4kg', lboxx: 'small' },
+            { id: 3, name: 'Circular Saw', model: 'GKS 65', specs: 'Power: 1200W, Blade: 65mm, Weight: 2.3kg', lboxx: 'medium' },
+            { id: 4, name: 'Angle Grinder', model: 'GWS 1000', specs: 'Power: 1000W, Disc: 100mm, Weight: 1.8kg', lboxx: 'large' },
+            { id: 5, name: 'Orbital Sander', model: 'PEX 320A', specs: 'Power: 300W, Pad: 125mm, Weight: 1.2kg', lboxx: 'small' },
+        ];
+
+        const lboxxOptions = [
+            { id: 'small', name: 'L-Boxx 238', capacity: '5-7 tools', size: 'Small' },
+            { id: 'medium', name: 'L-Boxx 374', capacity: '10-12 tools', size: 'Medium' },
+            { id: 'large', name: 'L-Boxx 438', capacity: '15-20 tools', size: 'Large' },
+        ];
+
+        // State Management
+        let state = {
+            favorites: [],
+            collections: [],
+            lboxxAssignments: {},
+        };
+
+        // Load state from localStorage
+        function loadState() {
+            const saved = localStorage.getItem('boschProToolState');
+            if (saved) {
+                state = JSON.parse(saved);
+            }
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            localStorage.setItem('boschProToolState', JSON.stringify(state));
+        }
+
+        // Flow Navigation
+        document.querySelectorAll('.nav-btn').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                const flowName = e.target.dataset.flow;
+                switchFlow(flowName);
+            });
+        });
+
+        function switchFlow(flowName) {
+            document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+            document.getElementById(`${flowName}-flow`).classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
+            document.querySelector(`[data-flow="${flowName}"]`).classList.add('active');
+        }
+
+        // Flow 1: Search → Detail → Favorite
+        function renderTools(tools) {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+
+            if (tools.length === 0) {
+                resultsDiv.innerHTML = '<p aria-live="assertive">No tools found. Try different keywords.</p>';
+                return;
+            }
+
+            tools.forEach((tool) => {
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.tabIndex = 0;
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', `${tool.name} - ${tool.model}`);
+
+                const isFav = state.favorites.includes(tool.id);
+                card.innerHTML = `
+                    <h3>${tool.name}</h3>
+                    <p><strong>Model:</strong> ${tool.model}</p>
+                    <p style="color: #888; font-size: 0.8rem;">${tool.specs}</p>
+                    <button class="btn btn-primary details-btn" aria-label="View details for ${tool.name}">View Details</button>
+                `;
+
+                card.addEventListener('click', () => showToolDetail(tool));
+                card.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') showToolDetail(tool);
+                });
+
+                resultsDiv.appendChild(card);
+            });
+        }
+
+        function showToolDetail(tool) {
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('detailContent');
+
+            const isFav = state.favorites.includes(tool.id);
+
+            content.innerHTML = `
+                <h3>${tool.name}</h3>
+                <p><strong>Model:</strong> ${tool.model}</p>
+
+                <div class="detail-specs">
+                    <h3>Specifications</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">Power:</span>
+                        <span class="spec-value">${tool.specs}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Recommended L-Boxx:</span>
+                        <span class="spec-value">${tool.lboxx.toUpperCase()}</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="favBtn" aria-label="Add to favorites">
+                        ${isFav ? '★ Remove from Favorites' : '☆ Add to Favorites'}
+                    </button>
+                    <button class="btn btn-secondary" id="assignLboxxBtn" aria-label="Assign to L-Boxx">
+                        Assign to L-Boxx
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('favBtn').addEventListener('click', () => {
+                toggleFavorite(tool.id);
+                showToolDetail(tool);
+            });
+
+            document.getElementById('assignLboxxBtn').addEventListener('click', () => {
+                assignToLboxx(tool);
+                modal.classList.remove('active');
+            });
+
+            modal.classList.add('active');
+        }
+
+        function toggleFavorite(toolId) {
+            const idx = state.favorites.indexOf(toolId);
+            if (idx > -1) {
+                state.favorites.splice(idx, 1);
+            } else {
+                state.favorites.push(toolId);
+            }
+            saveState();
+        }
+
+        function assignToLboxx(tool) {
+            switchFlow('lboxx');
+            document.getElementById('lboxxSelect').value = tool.lboxx;
+        }
+
+        // Modal close
+        document.getElementById('closeDetail').addEventListener('click', () => {
+            document.getElementById('detailModal').classList.remove('active');
+        });
+
+        document.getElementById('detailModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('detailModal')) {
+                document.getElementById('detailModal').classList.remove('active');
+            }
+        });
+
+        // Search functionality
+        document.getElementById('toolSearch').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = mockTools.filter(
+                (t) =>
+                    t.name.toLowerCase().includes(query) ||
+                    t.model.toLowerCase().includes(query)
+            );
+            renderTools(filtered);
+        });
+
+        // Flow 2: Collection Manager
+        document.getElementById('createCollectionBtn').addEventListener('click', () => {
+            const name = document.getElementById('collectionName').value.trim();
+            const desc = document.getElementById('collectionDesc').value.trim();
+
+            if (!name) {
+                showMessage('collectionMessage', 'Collection name is required', 'info');
+                return;
+            }
+
+            state.collections.push({
+                id: Date.now(),
+                name,
+                desc,
+                tools: [],
+            });
+            saveState();
+
+            document.getElementById('collectionName').value = '';
+            document.getElementById('collectionDesc').value = '';
+
+            showMessage('collectionMessage', `Collection "${name}" created!`, 'success');
+            renderCollections();
+        });
+
+        function renderCollections() {
+            const list = document.getElementById('collectionList');
+            list.innerHTML = '';
+
+            if (state.collections.length === 0) {
+                list.innerHTML = '<li><p>No collections yet. Create one to get started!</p></li>';
+                return;
+            }
+
+            state.collections.forEach((col) => {
+                const item = document.createElement('li');
+                item.className = 'collection-item';
+                item.innerHTML = `
+                    <div>
+                        <h3>${col.name}</h3>
+                        <p>${col.desc || 'No description'}</p>
+                    </div>
+                    <div class="collection-actions">
+                        <button class="btn btn-secondary" aria-label="Edit collection ${col.name}">Edit</button>
+                        <button class="btn btn-secondary" id="delete-${col.id}" aria-label="Delete collection ${col.name}">Delete</button>
+                    </div>
+                `;
+
+                document.getElementById(`delete-${col.id}`).addEventListener('click', () => {
+                    state.collections = state.collections.filter((c) => c.id !== col.id);
+                    saveState();
+                    renderCollections();
+                });
+
+                list.appendChild(item);
+            });
+        }
+
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            el.className = `message ${type}`;
+            el.textContent = text;
+            setTimeout(() => {
+                el.textContent = '';
+                el.className = '';
+            }, 4000);
+        }
+
+        // Flow 3: L-Boxx Manager
+        function renderLboxxOptions() {
+            const grid = document.getElementById('lboxxGrid');
+            grid.innerHTML = '';
+
+            lboxxOptions.forEach((lboxx) => {
+                const item = document.createElement('div');
+                item.className = 'lboxx-item';
+                item.tabIndex = 0;
+                item.setAttribute('role', 'button');
+                item.setAttribute('aria-label', `${lboxx.name} - ${lboxx.capacity}`);
+
+                item.innerHTML = `
+                    <h3>${lboxx.name}</h3>
+                    <p>Capacity: ${lboxx.capacity}</p>
+                    <span class="lboxx-status">Available</span>
+                `;
+
+                item.addEventListener('click', () => selectLboxx(lboxx));
+                item.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') selectLboxx(lboxx);
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        function selectLboxx(lboxx) {
+            showMessage('lboxxMessage', `L-Boxx ${lboxx.name} selected! Tools will be organized here.`, 'success');
+        }
+
+        // Initialize
+        loadState();
+        renderTools(mockTools);
+        renderCollections();
+        renderLboxxOptions();
+
+        // Keyboard Navigation - Escape closes modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('detailModal').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosch Professional Tool Finder</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <header class="header">
+            <h1 class="app-title">🔧 Bosch Professional Tool Finder</h1>
+            <p class="tagline">Find the perfect tool for your needs</p>
+        </header>
+
+        <main class="main-content">
+            <section class="search-section">
+                <input 
+                    type="text" 
+                    id="search" 
+                    class="search-input" 
+                    placeholder="Search tools by name or category..."
+                    aria-label="Search tools"
+                >
+                <div class="search-filters">
+                    <label>
+                        <input type="checkbox" id="filter-cordless" class="filter-checkbox">
+                        Cordless
+                    </label>
+                    <label>
+                        <input type="checkbox" id="filter-compact" class="filter-checkbox">
+                        Compact
+                    </label>
+                </div>
+            </section>
+
+            <section id="tools-container" class="tools-grid">
+                <div class="loading">Loading tools...</div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Bosch Professional. All rights reserved. | <a href="#debug">Debug Info</a></p>
+        </footer>
+
+        <div id="debug" class="debug-panel" style="display: none;">
+            <h3>Debug Information</h3>
+            <pre id="debug-output"></pre>
+            <button onclick="document.querySelector('.debug-panel').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

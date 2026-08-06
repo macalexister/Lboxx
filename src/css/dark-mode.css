@@ -1,0 +1,32 @@
+[data-theme="dark"] {
+  --color-bg: #1e1e1e;
+  --color-text: #e0e0e0;
+  --color-card: #2a2a2a;
+  --color-border: #404040;
+}
+
+[data-theme="dark"] .footer {
+  background: #2a2a2a;
+  border-top-color: var(--color-border);
+}
+
+[data-theme="dark"] .search-input {
+  background: var(--color-card);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .search-input:focus {
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .debug-panel {
+  background: var(--color-card);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .debug-panel pre {
+  background: #1e1e1e;
+  color: var(--color-text);
+}

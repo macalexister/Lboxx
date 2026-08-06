@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+  .header {
+    padding: var(--spacing-lg);
+  }
+
+  .app-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .main-content {
+    padding: var(--spacing-lg);
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-filters {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: var(--spacing-md);
+  }
+
+  .app-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .tagline {
+    font-size: var(--font-size-base);
+  }
+
+  .main-content {
+    padding: var(--spacing-md);
+  }
+
+  .tool-card {
+    padding: var(--spacing-sm);
+  }
+
+  .debug-panel {
+    max-width: 90vw;
+    bottom: 10px;
+    right: 10px;
+  }
+}
