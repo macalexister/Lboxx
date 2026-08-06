@@ -5,9 +5,9 @@ const CONFIG = {
     COLLECTIONS: '/data/collections-sample.json',
   },
   STORAGE_KEYS: {
-    THEME: 'bosch-pro-theme',
-    COLLECTIONS: 'bosch-pro-collections',
-    SEARCH_HISTORY: 'bosch-pro-search-history',
+    THEME: 'lboxx-tool-finder-theme',
+    COLLECTIONS: 'lboxx-tool-finder-collections',
+    SEARCH_HISTORY: 'lboxx-tool-finder-search-history',
   },
   DEFAULTS: {
     THEME: 'light',

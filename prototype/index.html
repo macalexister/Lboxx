@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bosch Pro Tool Finder - Interactive Prototype</title>
+    <title>L-BOXX Tool Finder - Interactive Prototype</title>
     <style>
         * {
             margin: 0;
@@ -516,7 +516,7 @@
 <body>
     <!-- Navigation -->
     <nav role="navigation" aria-label="Main Navigation">
-        <h1>Bosch Pro Tool Finder</h1>
+        <h1>L-BOXX Tool Finder</h1>
         <button class="nav-btn active" data-flow="search" aria-label="Search and Browse Tools">🔍 Search Flow</button>
         <button class="nav-btn" data-flow="collection" aria-label="Manage Collections">📁 Collections</button>
         <button class="nav-btn" data-flow="lboxx" aria-label="Organize L-Boxx">📦 L-Boxx</button>
@@ -645,7 +645,7 @@
 
         // Load state from localStorage
         function loadState() {
-            const saved = localStorage.getItem('boschProToolState');
+            const saved = localStorage.getItem('lboxxToolFinderState');
             if (saved) {
                 state = JSON.parse(saved);
             }
@@ -653,7 +653,7 @@
 
         // Save state to localStorage
         function saveState() {
-            localStorage.setItem('boschProToolState', JSON.stringify(state));
+            localStorage.setItem('lboxxToolFinderState', JSON.stringify(state));
         }
 
         // Flow Navigation

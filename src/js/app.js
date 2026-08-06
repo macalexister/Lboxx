@@ -1,7 +1,7 @@
 let allTools = [];
 
 async function initApp() {
-  console.log('Initializing Bosch Pro Tool Finder...');
+  console.log('Initializing L-BOXX Tool Finder...');
   
   try {
     await loadTools();

@@ -49,29 +49,28 @@ jobs:
       - name: Validate HTML
         run: |
           python3 << 'EOF'
-          import os
+          with open('index.html', 'r', encoding='utf-8') as f:
+              content = f.read()
 
-          html_files = [f for f in os.listdir('src') if f.endswith('.html')]
-
-          for html_file in html_files:
-              path = os.path.join('src', html_file)
-              with open(path, 'r', encoding='utf-8') as f:
-                  content = f.read()
-                  if '<!DOCTYPE html>' in content and '<html' in content:
-                      print(f"✓ {html_file} looks valid")
-                  else:
-                      print(f"✗ {html_file} missing DOCTYPE or html tag")
-                      exit(1)
+          if '<!DOCTYPE html>' in content and '<html' in content:
+              print("✓ index.html looks valid")
+          else:
+              print("✗ index.html missing DOCTYPE or html tag")
+              exit(1)
           EOF
 
       - name: Check for critical files
         run: |
           required_files=(
-            "src/index.html"
+            "index.html"
+            "main.js"
             "data/tools.json"
             "data/lboxx.json"
-            "src/css/main.css"
-            "src/js/app.js"
+            "styles/main.css"
+            "lib/fuse.js"
+            "js/modules/ui.js"
+            "js/modules/search.js"
+            "js/modules/results.js"
           )
 
           for file in "${required_files[@]}"; do
