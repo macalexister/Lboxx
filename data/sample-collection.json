@@ -1,0 +1,60 @@
+{
+  "id": "collection-electrician-starter",
+  "name": "Electrician Starter Kit",
+  "description": "Basic tools for starting electrical work. Perfect for apprentices or small jobs.",
+  "createdAt": "2026-08-01T10:30:00Z",
+  "updatedAt": "2026-08-06T12:00:00Z",
+  "category": "electrician",
+  "lboxx": {
+    "id": "lboxx-medium",
+    "inlays": ["inlay-power-tools", "inlay-bits"]
+  },
+  "items": [
+    {
+      "id": "item-1",
+      "toolId": "bosch-gsr-18v-compact",
+      "quantity": 1,
+      "location": "Drawer 1, Slot 1",
+      "condition": "perfect",
+      "notes": "Recently serviced, drill bits in storage case",
+      "customAttributes": {
+        "lastMaintenance": "2026-08-01",
+        "purchaseDate": "2025-12-15"
+      }
+    },
+    {
+      "id": "item-2",
+      "toolId": "bosch-gdr-18v-impact",
+      "quantity": 1,
+      "location": "Drawer 1, Slot 2",
+      "condition": "good",
+      "notes": "Working perfectly, some scuffing on body",
+      "customAttributes": {
+        "battery": "ProCORE 5.5Ah",
+        "purchaseDate": "2026-01-20"
+      }
+    },
+    {
+      "id": "item-3",
+      "toolId": "bosch-gws-18v-125",
+      "quantity": 1,
+      "location": "Cabinet, Left Side",
+      "condition": "good",
+      "notes": "Grinding disc included",
+      "customAttributes": {
+        "purchaseDate": "2026-06-10",
+        "warranty": "3 years"
+      }
+    }
+  ],
+  "favorites": ["bosch-gsr-18v-compact"],
+  "tags": ["essential", "beginner", "compact", "cordless"],
+  "metadata": {
+    "shared": false,
+    "sharedWith": [],
+    "public": false,
+    "archived": false,
+    "totalValue": 450,
+    "estimatedWeight": 6.5
+  }
+}

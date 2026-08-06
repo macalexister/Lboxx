@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:00:00Z",
+  "lboxxVariants": [
+    {
+      "id": "lboxx-mini",
+      "name": "L-Boxx Mini",
+      "size": "mini",
+      "dimensions": {
+        "width": { "value": 117, "unit": "mm" },
+        "depth": { "value": 92, "unit": "mm" },
+        "height": { "value": 63, "unit": "mm" }
+      },
+      "capacity": {
+        "volume": 0.5,
+        "maxWeight": 2
+      },
+      "material": "Polypropylene",
+      "color": "red",
+      "stackable": true,
+      "compatibleInlays": ["inlay-small-tools", "inlay-bits"],
+      "accessories": [],
+      "productCode": "1600A00726",
+      "image": "https://example.com/lboxx-mini.jpg"
+    },
+    {
+      "id": "lboxx-small",
+      "name": "L-Boxx Small",
+      "size": "small",
+      "dimensions": {
+        "width": { "value": 170, "unit": "mm" },
+        "depth": { "value": 124, "unit": "mm" },
+        "height": { "value": 92, "unit": "mm" }
+      },
+      "capacity": {
+        "volume": 1.2,
+        "maxWeight": 5
+      },
+      "material": "Polypropylene",
+      "color": "red",
+      "stackable": true,
+      "compatibleInlays": ["inlay-power-tools", "inlay-bits"],
+      "accessories": [],
+      "productCode": "1600A00727",
+      "image": "https://example.com/lboxx-small.jpg"
+    },
+    {
+      "id": "lboxx-medium",
+      "name": "L-Boxx Medium",
+      "size": "medium",
+      "dimensions": {
+        "width": { "value": 238, "unit": "mm" },
+        "depth": { "value": 152, "unit": "mm" },
+        "height": { "value": 110, "unit": "mm" }
+      },
+      "capacity": {
+        "volume": 2.5,
+        "maxWeight": 10
+      },
+      "material": "Polypropylene",
+      "color": "red",
+      "stackable": true,
+      "compatibleInlays": ["inlay-power-tools", "inlay-organizer"],
+      "accessories": [],
+      "productCode": "1600A00729",
+      "image": "https://example.com/lboxx-medium.jpg"
+    }
+  ],
+  "inlays": [
+    {
+      "id": "inlay-small-tools",
+      "name": "Small Tools Inlay",
+      "type": "foam",
+      "forLboxx": ["mini"],
+      "capacity": 4,
+      "compatibleTools": ["bosch-gsr-18v-compact"],
+      "material": "Foam (EVA)",
+      "features": ["removable-dividers", "anti-slip"],
+      "productCode": "2610996225",
+      "image": "https://example.com/inlay-small.jpg"
+    },
+    {
+      "id": "inlay-power-tools",
+      "name": "Power Tools Inlay",
+      "type": "foam",
+      "forLboxx": ["small", "medium"],
+      "capacity": 3,
+      "compatibleTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact"],
+      "material": "Foam (EVA)",
+      "features": ["removable-dividers", "anti-slip", "dust-resistant"],
+      "productCode": "2610996226",
+      "image": "https://example.com/inlay-power.jpg"
+    },
+    {
+      "id": "inlay-bits",
+      "name": "Bits & Accessories Inlay",
+      "type": "organizer",
+      "forLboxx": ["mini", "small"],
+      "capacity": 12,
+      "compatibleTools": [],
+      "material": "Polycarbonate",
+      "features": ["clear-view", "adjustable-slots"],
+      "productCode": "2610996227",
+      "image": "https://example.com/inlay-bits.jpg"
+    },
+    {
+      "id": "inlay-organizer",
+      "name": "Universal Organizer",
+      "type": "organizer",
+      "forLboxx": ["medium", "large"],
+      "capacity": 18,
+      "compatibleTools": [],
+      "material": "Polycarbonate",
+      "features": ["clear-view", "adjustable-slots", "compartments"],
+      "productCode": "2610996228",
+      "image": "https://example.com/inlay-org.jpg"
+    }
+  ],
+  "preConfiguredSets": [
+    {
+      "id": "set-electrician-starter",
+      "name": "Electrician's Starter Kit",
+      "description": "Complete kit for electrical work with essential power tools",
+      "lboxx": "lboxx-medium",
+      "inlays": ["inlay-power-tools", "inlay-bits"],
+      "includedTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact"],
+      "useCase": "Electrical installation and maintenance"
+    },
+    {
+      "id": "set-metal-worker",
+      "name": "Metal Worker's Set",
+      "description": "Tools for cutting, grinding and working with metal",
+      "lboxx": "lboxx-medium",
+      "inlays": ["inlay-power-tools", "inlay-organizer"],
+      "includedTools": ["bosch-gws-18v-125"],
+      "useCase": "Metal fabrication and grinding work"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Validate HTML
+        run: |
+          python3 << 'EOF'
+          import os
+          
+          html_files = [f for f in os.listdir('src') if f.endswith('.html')]
+          
+          for html_file in html_files:
+              path = os.path.join('src', html_file)
+              with open(path, 'r', encoding='utf-8') as f:
+                  content = f.read()
+                  if '<!DOCTYPE html>' in content and '<html' in content:
+                      print(f"✓ {html_file} looks valid")
+                  else:
+                      print(f"✗ {html_file} missing DOCTYPE or html tag")
+                      exit(1)
+          EOF
+      
+      - name: Check for critical files
+        run: |
+          # Verify all required files exist
+          required_files=(
+            "src/index.html"
+            "data/tools.json"
+            "data/lboxx.json"
+            "src/css/main.css"
+            "src/js/app.js"
+          )
+          
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "✗ Missing required file: $file"
+              exit 1
+            fi
+            echo "✓ Found: $file"
+          done
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+      
+      - name: Post deployment checks
+        run: |
+          echo "✅ Deployment complete!"
+          echo "Site will be available at: ${{ steps.deployment.outputs.page_url }}"
+          echo ""
+          echo "Deployment Details:"
+          echo "- Repository: ${{ github.repository }}"
+          echo "- Branch: ${{ github.ref_name }}"
+          echo "- Commit: ${{ github.sha }}"
+          echo "- Actor: ${{ github.actor }}"
+      
+      - name: Comment on commit
+        uses: actions/github-script@v6
+        if: always()
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deployment.outputs.page_url }}';
+            const status = '${{ job.status }}';
+            
+            let body = '';
+            if (status === 'success') {
+              body = `✅ **Deployment Successful**\n\n🌐 Live at: ${deploymentUrl}`;
+            } else {
+              body = `❌ **Deployment Failed**\n\nPlease check the workflow logs.`;
+            }
+            
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: body
+            });

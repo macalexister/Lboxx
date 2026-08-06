@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "L-Boxx Catalog",
+  "description": "L-Boxx storage systems and inlay configurations",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "example": "1.0.0"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lboxxVariants": {
+      "type": "array",
+      "description": "Available L-Boxx models",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "size"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^lboxx-[a-z0-9-]+$",
+            "example": "lboxx-mini"
+          },
+          "name": {
+            "type": "string",
+            "example": "L-Boxx Mini"
+          },
+          "size": {
+            "type": "string",
+            "enum": ["mini", "small", "medium", "large", "xl"],
+            "description": "Standard L-Boxx size category"
+          },
+          "dimensions": {
+            "type": "object",
+            "required": ["width", "depth", "height"],
+            "properties": {
+              "width": {
+                "type": "object",
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                }
+              },
+              "depth": {
+                "type": "object",
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                }
+              },
+              "height": {
+                "type": "object",
+                "properties": {
+                  "value": { "type": "number" },
+                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                }
+              }
+            }
+          },
+          "capacity": {
+            "type": "object",
+            "description": "Storage capacity",
+            "properties": {
+              "volume": { "type": "number", "description": "Liters" },
+              "maxWeight": { "type": "number", "description": "kg" }
+            }
+          },
+          "material": {
+            "type": "string",
+            "example": "Polypropylene"
+          },
+          "color": {
+            "type": "string",
+            "enum": ["red", "black", "blue", "yellow"],
+            "example": "red"
+          },
+          "stackable": {
+            "type": "boolean",
+            "description": "Can be stacked with other L-Boxx units"
+          },
+          "compatibleInlays": {
+            "type": "array",
+            "description": "IDs of compatible inlay types",
+            "items": {
+              "type": "string"
+            }
+          },
+          "accessories": {
+            "type": "array",
+            "description": "Available accessories for this variant",
+            "items": {
+              "type": "string"
+            }
+          },
+          "productCode": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "inlays": {
+      "type": "array",
+      "description": "Tool inlay configurations",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "forLboxx"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^inlay-[a-z0-9-]+$",
+            "example": "inlay-power-tools"
+          },
+          "name": {
+            "type": "string",
+            "example": "Power Tools Inlay"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["foam", "organizer", "divider", "drawer", "custom"],
+            "description": "Inlay type"
+          },
+          "forLboxx": {
+            "type": "array",
+            "description": "L-Boxx sizes this inlay fits",
+            "items": {
+              "type": "string",
+              "enum": ["mini", "small", "medium", "large", "xl"]
+            }
+          },
+          "capacity": {
+            "type": "integer",
+            "description": "Number of compartments/slots"
+          },
+          "compatibleTools": {
+            "type": "array",
+            "description": "IDs of tools this inlay fits",
+            "items": {
+              "type": "string"
+            }
+          },
+          "material": {
+            "type": "string",
+            "example": "Foam (EVA)"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["removable-dividers", "anti-slip", "dust-resistant"]
+          },
+          "productCode": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "preConfiguredSets": {
+      "type": "array",
+      "description": "Pre-planned L-Boxx configurations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^set-[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "example": "Electrician's Starter Kit"
+          },
+          "description": {
+            "type": "string"
+          },
+          "lboxx": {
+            "type": "string",
+            "description": "L-Boxx ID for this set"
+          },
+          "inlays": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Inlay IDs included"
+          },
+          "includedTools": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Tool IDs that come with this set"
+          },
+          "useCase": {
+            "type": "string",
+            "example": "Electrical installation and maintenance"
+          }
+        }
+      }
+    }
+  },
+  "required": ["version", "lboxxVariants", "inlays"]
+}

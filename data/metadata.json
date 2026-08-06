@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:00:00Z",
+  "catalogs": {
+    "tools": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-08-06T12:00:00Z",
+      "totalItems": 3,
+      "fileSize": "2.8 KB"
+    },
+    "lboxx": {
+      "version": "1.0.0",
+      "lastUpdated": "2026-08-06T12:00:00Z",
+      "totalVariants": 3,
+      "totalInlays": 4,
+      "totalSets": 2,
+      "fileSize": "4.3 KB"
+    }
+  },
+  "app": {
+    "name": "Bosch Pro Tool",
+    "version": "1.0.0",
+    "releaseDate": "2026-08-06",
+    "status": "production"
+  },
+  "features": {
+    "offline": true,
+    "search": true,
+    "collections": true,
+    "export": true,
+    "import": true,
+    "darkMode": true
+  }
+}

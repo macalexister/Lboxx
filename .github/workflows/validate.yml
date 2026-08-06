@@ -1,0 +1,130 @@
+name: Validate JSON & Schema
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+      - '.github/workflows/validate.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Validate JSON syntax
+        run: |
+          python3 << 'EOF'
+          import json
+          import sys
+          import os
+          
+          files_to_check = [
+              'data/tools.json',
+              'data/lboxx.json',
+              'data/metadata.json',
+              'schemas/tools-schema.json',
+              'schemas/lboxx-schema.json',
+              'schemas/collection-schema.json'
+          ]
+          
+          all_valid = True
+          for file_path in files_to_check:
+              if os.path.exists(file_path):
+                  try:
+                      with open(file_path, 'r', encoding='utf-8') as f:
+                          json.load(f)
+                      print(f"✓ {file_path} is valid JSON")
+                  except json.JSONDecodeError as e:
+                      print(f"✗ {file_path} has invalid JSON: {e}")
+                      all_valid = False
+              else:
+                  print(f"⚠ {file_path} not found (skipping)")
+          
+          if not all_valid:
+              sys.exit(1)
+          EOF
+      
+      - name: Install jsonschema
+        run: pip install jsonschema
+      
+      - name: Validate against schemas
+        run: |
+          python3 << 'EOF'
+          import json
+          import sys
+          from jsonschema import validate, ValidationError
+          
+          # Validate tools.json against schema
+          try:
+              with open('data/tools.json', 'r') as f:
+                  tools_data = json.load(f)
+              with open('schemas/tools-schema.json', 'r') as f:
+                  tools_schema = json.load(f)
+              
+              validate(instance=tools_data, schema=tools_schema)
+              print("✓ tools.json validates against schema")
+          except ValidationError as e:
+              print(f"✗ tools.json schema validation failed: {e.message}")
+              sys.exit(1)
+          except FileNotFoundError:
+              print("⚠ tools.json or schema not found (skipping)")
+          
+          # Validate lboxx.json against schema
+          try:
+              with open('data/lboxx.json', 'r') as f:
+                  lboxx_data = json.load(f)
+              with open('schemas/lboxx-schema.json', 'r') as f:
+                  lboxx_schema = json.load(f)
+              
+              validate(instance=lboxx_data, schema=lboxx_schema)
+              print("✓ lboxx.json validates against schema")
+          except ValidationError as e:
+              print(f"✗ lboxx.json schema validation failed: {e.message}")
+              sys.exit(1)
+          except FileNotFoundError:
+              print("⚠ lboxx.json or schema not found (skipping)")
+          EOF
+      
+      - name: Check file sizes
+        run: |
+          python3 << 'EOF'
+          import os
+          
+          max_size = 10 * 1024 * 1024  # 10 MB
+          
+          for file_path in ['data/tools.json', 'data/lboxx.json']:
+              if os.path.exists(file_path):
+                  size = os.path.getsize(file_path)
+                  size_mb = size / (1024 * 1024)
+                  
+                  if size > max_size:
+                      print(f"✗ {file_path} is {size_mb:.2f}MB (max 10MB)")
+                      exit(1)
+                  else:
+                      print(f"✓ {file_path} is {size_mb:.2f}MB")
+          EOF
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ JSON validation passed!\n- All JSON files syntactically valid\n- All data validated against schemas\n- File sizes within limits'
+            })

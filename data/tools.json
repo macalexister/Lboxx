@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:00:00Z",
+  "totalTools": 3,
+  "categories": [
+    "Power Drills",
+    "Impact Drivers",
+    "Angle Grinders"
+  ],
+  "tools": [
+    {
+      "id": "bosch-gsr-18v-compact",
+      "name": "Bosch GSR 18V-Compact Drill",
+      "category": "Power Drills",
+      "type": "cordless",
+      "description": "Compact and lightweight drill perfect for tight spaces. Ideal for drilling in wood, metal, and plastic.",
+      "specifications": {
+        "voltage": "18V",
+        "power": "600W",
+        "speed": "0-1500 RPM",
+        "chuckSize": "13mm",
+        "weight": "1.6 kg"
+      },
+      "bestFor": ["drilling", "driving", "wood work"],
+      "fits": ["small", "medium"],
+      "accessories": ["bits-set", "chuck-adapter"],
+      "batteryCompatible": ["CoolPack"],
+      "productCode": "06019C5072",
+      "releaseYear": 2024,
+      "tags": ["compact", "cordless", "18v", "professional"],
+      "notes": "Best for small jobs and confined spaces. Very lightweight for overhead work."
+    },
+    {
+      "id": "bosch-gdr-18v-impact",
+      "name": "Bosch GDR 18V-EC Impact Driver",
+      "category": "Impact Drivers",
+      "type": "cordless",
+      "description": "High-torque impact driver for fast driving and drilling. 3-stage electronic speed control.",
+      "specifications": {
+        "voltage": "18V",
+        "power": "750W",
+        "maxTorque": "170 Nm",
+        "speed": "0-2800 RPM",
+        "weight": "2.0 kg"
+      },
+      "bestFor": ["driving fasteners", "impact drilling", "screw driving"],
+      "fits": ["small", "medium", "large"],
+      "accessories": ["impact-bits", "socket-adapter"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "productCode": "06019B2174",
+      "releaseYear": 2025,
+      "tags": ["impact", "high-torque", "18v", "professional"],
+      "notes": "Electronic speed control prevents stripping. Great for construction sites."
+    },
+    {
+      "id": "bosch-gws-18v-125",
+      "name": "Bosch GWS 18V-125 Angle Grinder",
+      "category": "Angle Grinders",
+      "type": "cordless",
+      "description": "Powerful angle grinder for cutting, grinding, and polishing. Compact design with electronic speed control.",
+      "specifications": {
+        "voltage": "18V",
+        "power": "1000W",
+        "discSize": "125mm",
+        "speed": "6500 RPM",
+        "weight": "2.5 kg"
+      },
+      "bestFor": ["grinding", "cutting metal", "polishing"],
+      "fits": ["medium", "large", "xl"],
+      "accessories": ["grinding-wheel", "cutting-disc"],
+      "batteryCompatible": ["ProCORE"],
+      "productCode": "06019C9000",
+      "releaseYear": 2026,
+      "tags": ["professional", "cordless", "18v", "high-power"],
+      "notes": "Requires solid hand grip. Anti-vibration technology reduces fatigue."
+    }
+  ]
+}

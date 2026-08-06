@@ -1,0 +1,41 @@
+# Node modules (if using any dev tools)
+node_modules/
+package-lock.json
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS files
+.DS_Store
+.env
+.env.local
+.env.*.local
+
+# Build artifacts (if we ever add build)
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Browser cache
+.cache/
+
+# Temporary files
+*.tmp
+temp/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Local development
+localhost-data/
+.local/

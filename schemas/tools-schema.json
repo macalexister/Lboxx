@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bosch Tools Catalog",
+  "description": "Master catalog of Bosch professional tools with specifications",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic versioning (e.g., 1.0.0)",
+      "example": "1.0.0"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last update"
+    },
+    "totalTools": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total count of tools in catalog"
+    },
+    "categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "List of tool categories",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Power Drills",
+          "Impact Drivers",
+          "Angle Grinders",
+          "Circular Saws",
+          "Orbital Sanders",
+          "Jigsaws",
+          "Belt Sanders",
+          "Grinders",
+          "Hammers & Drills",
+          "Multi-Tools",
+          "Measuring Tools",
+          "Laser Levels",
+          "Work Lights",
+          "Batteries & Chargers",
+          "Accessories"
+        ]
+      }
+    },
+    "tools": {
+      "type": "array",
+      "description": "Array of tool objects",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "category", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Unique tool identifier (lowercase, hyphens only)",
+            "example": "bosch-gws-18v-125"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "description": "Official tool name",
+            "example": "Bosch GWS 18V-125 Angle Grinder"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Power Drills",
+              "Impact Drivers",
+              "Angle Grinders",
+              "Circular Saws",
+              "Orbital Sanders",
+              "Jigsaws",
+              "Belt Sanders",
+              "Grinders",
+              "Hammers & Drills",
+              "Multi-Tools",
+              "Measuring Tools",
+              "Laser Levels",
+              "Work Lights",
+              "Batteries & Chargers",
+              "Accessories"
+            ],
+            "description": "Tool category"
+          },
+          "type": {
+            "type": "string",
+            "description": "Tool type (cordless, corded, pneumatic, etc.)"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Detailed tool description"
+          },
+          "specifications": {
+            "type": "object",
+            "description": "Technical specifications",
+            "properties": {
+              "voltage": {
+                "type": "string",
+                "example": "18V"
+              },
+              "power": {
+                "type": "string",
+                "example": "900W"
+              },
+              "speed": {
+                "type": "string",
+                "example": "3000 RPM"
+              },
+              "discSize": {
+                "type": "string",
+                "example": "125mm"
+              },
+              "weight": {
+                "type": "string",
+                "example": "2.5 kg"
+              },
+              "noLoad": {
+                "type": "string",
+                "description": "No-load speed or other performance"
+              }
+            }
+          },
+          "bestFor": {
+            "type": "array",
+            "description": "Recommended use cases",
+            "items": {
+              "type": "string"
+            },
+            "example": ["grinding", "cutting", "polishing"]
+          },
+          "fits": {
+            "type": "array",
+            "description": "Compatible L-Boxx compartment sizes",
+            "items": {
+              "type": "string",
+              "enum": ["mini", "small", "medium", "large", "xl"]
+            }
+          },
+          "accessories": {
+            "type": "array",
+            "description": "Compatible accessory IDs",
+            "items": {
+              "type": "string"
+            }
+          },
+          "batteryCompatible": {
+            "type": "array",
+            "description": "Compatible battery series (e.g., CoolPack)",
+            "items": {
+              "type": "string"
+            },
+            "example": ["CoolPack", "ProCORE"]
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "Product image URL"
+          },
+          "manual": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to PDF manual"
+          },
+          "productCode": {
+            "type": "string",
+            "description": "Official Bosch product code"
+          },
+          "releaseYear": {
+            "type": "integer",
+            "minimum": 2000,
+            "maximum": 2030,
+            "description": "Year tool was released"
+          },
+          "tags": {
+            "type": "array",
+            "description": "Searchable tags",
+            "items": {
+              "type": "string"
+            },
+            "example": ["professional", "cordless", "18v", "compact"]
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Additional notes or tips"
+          }
+        }
+      }
+    }
+  },
+  "required": ["version", "lastUpdated", "tools"]
+}
