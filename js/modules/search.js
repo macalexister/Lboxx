@@ -50,9 +50,18 @@ const search = (() => {
             return true;
         });
     };
-    const isCordless = (tool) => (tool.categories || []).map(c => c.toLowerCase()).some(c => c.includes('cordless'));
-    const isCompact = (tool) => (tool.categories || []).map(c => c.toLowerCase()).some(c => c.includes('compact'));
-    const isPro = (tool) => (tool.categories || []).map(c => c.toLowerCase()).some(c => c.includes('professional'));
+    const isCordless = (tool) => {
+        const text = `${tool.type || ''} ${(tool.categories || []).join(' ')} ${(tool.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('cordless');
+    };
+    const isCompact = (tool) => {
+        const text = `${tool.name || ''} ${tool.description || ''} ${(tool.categories || []).join(' ')} ${(tool.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('compact');
+    };
+    const isPro = (tool) => {
+        const text = `${tool.name || ''} ${(tool.categories || []).join(' ')} ${(tool.tags || []).join(' ')}`.toLowerCase();
+        return text.includes('professional') || text.includes('pro');
+    };
     const getAllTools = () => [...allTools];
     return { init, query, getAllTools };
 })();

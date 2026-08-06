@@ -16,9 +16,11 @@ window.APP = (() => {
             ui.showError('Failed to load tools. Please refresh the page.');
             return;
         }
+        const lboxxData = await loadLboxxData();
+        const enrichedTools = enrichToolsWithLboxx(tools, lboxxData);
         console.log(`[APP] ✓ Loaded ${tools.length} tools`);
-        await state.cacheTools(tools);
-        await search.init(tools);
+        await state.cacheTools(enrichedTools);
+        await search.init(enrichedTools);
         console.log('[APP] ✓ Search module ready');
         results.init();
         console.log('[APP] ✓ Results module ready');
@@ -50,6 +52,22 @@ window.APP = (() => {
         return [];
     };
 
+    const loadLboxxData = async () => {
+        const endpoints = ['data/lboxx.json', 'data/sample-lboxx.json'];
+        for (const endpoint of endpoints) {
+            try {
+                const response = await fetch(endpoint);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                if (data && Array.isArray(data.lboxxVariants)) return data;
+            } catch (e) {
+                console.warn(`[APP] Could not load ${endpoint}:`, e);
+            }
+        }
+        console.warn('[APP] L-BOXX data unavailable, continuing without recommendations');
+        return null;
+    };
+
     const normalizeTool = (tool) => {
         const categories = Array.isArray(tool.categories) ? [...tool.categories] : [];
 
@@ -60,8 +78,50 @@ window.APP = (() => {
         return {
             ...tool,
             sku: tool.sku || tool.modelNumber || tool.productCode || '',
+            image: tool.image || tool.imageUrl || tool.thumbnail || '',
             categories,
         };
+    };
+
+    const enrichToolsWithLboxx = (tools, lboxxData) => {
+        if (!lboxxData || !Array.isArray(lboxxData.lboxxVariants)) {
+            return tools.map(tool => ({ ...tool, recommendedLboxx: [] }));
+        }
+
+        const variants = lboxxData.lboxxVariants;
+        const inlays = Array.isArray(lboxxData.inlays) ? lboxxData.inlays : [];
+        const bySize = new Map(variants.map(variant => [variant.size, variant]));
+
+        return tools.map(tool => {
+            const fits = Array.isArray(tool.fits) ? tool.fits : [];
+            const sizeMatches = fits.map(size => bySize.get(size)).filter(Boolean);
+            const inlayMatches = inlays.filter(inlay =>
+                Array.isArray(inlay.compatibleTools) && inlay.compatibleTools.includes(tool.id)
+            );
+            const inlayLboxxMatches = inlayMatches
+                .flatMap(inlay => (Array.isArray(inlay.forLboxx) ? inlay.forLboxx : []))
+                .map(size => bySize.get(size))
+                .filter(Boolean);
+
+            const uniqueRecommendations = [];
+            const seen = new Set();
+            [...sizeMatches, ...inlayLboxxMatches].forEach(variant => {
+                if (!seen.has(variant.id)) {
+                    seen.add(variant.id);
+                    uniqueRecommendations.push({
+                        id: variant.id,
+                        name: variant.name,
+                        size: variant.size,
+                        productCode: variant.productCode || '',
+                    });
+                }
+            });
+
+            return {
+                ...tool,
+                recommendedLboxx: uniqueRecommendations.slice(0, 3),
+            };
+        });
     };
 
     const setupEventHandlers = () => {
