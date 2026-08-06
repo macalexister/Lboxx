@@ -37,14 +37,18 @@ const ui = (() => {
         const imageSrc = tool.image || buildToolPlaceholder(tool.name);
         const favorite = typeof state !== 'undefined' && state.isFavorite ? state.isFavorite(tool.id) : false;
         const lboxx = Array.isArray(tool.recommendedLboxx) ? tool.recommendedLboxx : [];
-        const inlays = Array.isArray(tool.recommendedInlays) ? tool.recommendedInlays : [];
+        const directInlays = Array.isArray(tool.directInlays) ? tool.directInlays : [];
+        const additionalInlays = Array.isArray(tool.additionalInlays) ? tool.additionalInlays : [];
         const combo = tool.bestCombo && tool.bestCombo.lboxx && tool.bestCombo.inlay ? tool.bestCombo : null;
         const lboxxMarkup = lboxx.length > 0
             ? `<div class="tool-card-lboxx"><strong>Passende L-BOXX:</strong> ${lboxx.map(item => `${escapeHtml(item.name)} (${escapeHtml(item.size)})`).join(' • ')}</div>`
             : '<div class="tool-card-lboxx tool-card-lboxx--empty">Keine L-BOXX-Empfehlung hinterlegt</div>';
-        const inlayMarkup = inlays.length > 0
-            ? `<div class="tool-card-inlay"><strong>Passende Inlays:</strong> ${inlays.map(item => `${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}`).join(' • ')}</div>`
+        const directInlayMarkup = directInlays.length > 0
+            ? `<div class="tool-card-inlay"><strong>Direkt passende Inlays:</strong> ${directInlays.map(item => `${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}`).join(' • ')}</div>`
             : '<div class="tool-card-inlay tool-card-inlay--empty">Kein direkt passendes Inlay hinterlegt</div>';
+        const additionalInlayMarkup = additionalInlays.length > 0
+            ? `<div class="tool-card-inlay tool-card-inlay--secondary"><strong>Weitere passende Inlays:</strong> ${additionalInlays.map(item => `${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}`).join(' • ')}</div>`
+            : '';
         const comboMarkup = combo
             ? `<div class="tool-card-combo"><strong>Beste Kombination:</strong> ${escapeHtml(combo.lboxx.name)} + ${escapeHtml(combo.inlay.name)}</div>`
             : '<div class="tool-card-combo tool-card-combo--empty">Keine klare L-BOXX/Inlay-Kombi gefunden</div>';
@@ -60,7 +64,8 @@ const ui = (() => {
             ${badges ? `<div class="tool-card-meta">${badges}</div>` : ''}
             ${comboMarkup}
             ${lboxxMarkup}
-            ${inlayMarkup}
+            ${directInlayMarkup}
+            ${additionalInlayMarkup}
             <button type="button" class="tool-card-save" data-tool-id="${escapeHtml(tool.id)}" aria-pressed="${favorite ? 'true' : 'false'}">
                 ${favorite ? 'Gespeichert' : 'Speichern'}
             </button>

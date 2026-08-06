@@ -355,6 +355,10 @@ input[type="checkbox"] {
     color: var(--color-dark-gray);
 }
 
+.tool-card-inlay--secondary {
+    color: var(--color-secondary-gray);
+}
+
 .tool-card-inlay--empty {
     color: var(--color-secondary-gray);
 }
