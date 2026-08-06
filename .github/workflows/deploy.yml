@@ -19,23 +19,38 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
+      - name: Check Pages configuration
+        id: pages_check
+        run: |
+          status_code=$(curl -s -o /tmp/pages.json -w "%{http_code}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages")
+
+          if [ "$status_code" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "✓ GitHub Pages is enabled"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::GitHub Pages is not enabled for this repository. Enable it once in Settings > Pages (Source: GitHub Actions), then rerun this workflow."
+          fi
+
       - name: Setup Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
-      
+
       - name: Validate HTML
+        if: steps.pages_check.outputs.enabled == 'true'
         run: |
           python3 << 'EOF'
           import os
-          
+
           html_files = [f for f in os.listdir('src') if f.endswith('.html')]
-          
+
           for html_file in html_files:
               path = os.path.join('src', html_file)
               with open(path, 'r', encoding='utf-8') as f:
@@ -46,10 +61,10 @@ jobs:
                       print(f"✗ {html_file} missing DOCTYPE or html tag")
                       exit(1)
           EOF
-      
+
       - name: Check for critical files
+        if: steps.pages_check.outputs.enabled == 'true'
         run: |
-          # Verify all required files exist
           required_files=(
             "src/index.html"
             "data/tools.json"
@@ -57,7 +72,7 @@ jobs:
             "src/css/main.css"
             "src/js/app.js"
           )
-          
+
           for file in "${required_files[@]}"; do
             if [ ! -f "$file" ]; then
               echo "✗ Missing required file: $file"
@@ -65,17 +80,20 @@ jobs:
             fi
             echo "✓ Found: $file"
           done
-      
+
       - name: Upload artifact
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-      
+
       - name: Deploy to GitHub Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
-      
+
       - name: Post deployment checks
+        if: steps.pages_check.outputs.enabled == 'true'
         run: |
           echo "✅ Deployment complete!"
           echo "Site will be available at: ${{ steps.deployment.outputs.page_url }}"
@@ -85,4 +103,8 @@ jobs:
           echo "- Branch: ${{ github.ref_name }}"
           echo "- Commit: ${{ github.sha }}"
           echo "- Actor: ${{ github.actor }}"
-      
+
+      - name: Deployment blocked by repository setting
+        if: steps.pages_check.outputs.enabled != 'true'
+        run: |
+          echo "⛔ Deployment skipped because GitHub Pages is disabled at repository level."
