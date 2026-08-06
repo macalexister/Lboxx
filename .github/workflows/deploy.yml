@@ -15,26 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  check-pages:
-    runs-on: ubuntu-latest
-    outputs:
-      enabled: ${{ steps.pages_check.outputs.enabled }}
-    steps:
-      - name: Check Pages configuration
-        id: pages_check
-        run: |
-          status_code=$(curl -s -o /tmp/pages.json -w "%{http_code}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages")
-          if [ "$status_code" = "200" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "✓ GitHub Pages is enabled"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::GitHub Pages is not enabled for this repository. Enable it once in Settings > Pages (Source: GitHub Actions), then rerun this workflow."
-          fi
-
   deploy:
-    needs: check-pages
-    if: needs.check-pages.outputs.enabled == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -100,12 +81,3 @@ jobs:
           echo "- Branch: ${{ github.ref_name }}"
           echo "- Commit: ${{ github.sha }}"
           echo "- Actor: ${{ github.actor }}"
-
-  pages-disabled:
-    needs: check-pages
-    if: needs.check-pages.outputs.enabled != 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Explain why deployment is skipped
-        run: |
-          echo "⛔ Deployment skipped because GitHub Pages is disabled at repository level."
