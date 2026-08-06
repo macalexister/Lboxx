@@ -7,6 +7,7 @@ const ui = (() => {
         elements.app = document.getElementById('app');
         elements.mainContent = document.getElementById('main-content');
         elements.searchInput = document.getElementById('search-input');
+        elements.savedToolsContainer = document.getElementById('saved-tools-container');
         elements.resultsContainer = document.getElementById('results-container');
         elements.filterCordless = document.getElementById('filter-cordless');
         elements.filterCompact = document.getElementById('filter-compact');
@@ -38,20 +39,16 @@ const ui = (() => {
         const favorite = typeof state !== 'undefined' && state.isFavorite ? state.isFavorite(tool.id) : false;
         const lboxx = Array.isArray(tool.recommendedLboxx) ? tool.recommendedLboxx : [];
         const directInlays = Array.isArray(tool.directInlays) ? tool.directInlays : [];
-        const additionalInlays = Array.isArray(tool.additionalInlays) ? tool.additionalInlays : [];
-        const combo = tool.bestCombo && tool.bestCombo.lboxx && tool.bestCombo.inlay ? tool.bestCombo : null;
+        const bestInlay = tool.bestInlay || null;
         const lboxxMarkup = lboxx.length > 0
             ? `<div class="tool-card-lboxx"><strong>Passende L-BOXX:</strong><ul class="tool-card-list">${lboxx.map(item => `<li>${escapeHtml(item.name)} (${escapeHtml(item.size)})</li>`).join('')}</ul></div>`
             : '<div class="tool-card-lboxx tool-card-lboxx--empty">Keine L-BOXX-Empfehlung hinterlegt</div>';
         const directInlayMarkup = directInlays.length > 0
-            ? `<div class="tool-card-inlay"><strong>Direkt passende Inlays:</strong><ul class="tool-card-list">${directInlays.map(item => `<li>${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}</li>`).join('')}</ul></div>`
+            ? `<div class="tool-card-inlay"><strong>Passende Inlays für das Gerät:</strong><ul class="tool-card-list">${directInlays.map(item => `<li>${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}</li>`).join('')}</ul></div>`
             : '<div class="tool-card-inlay tool-card-inlay--empty">Kein direkt passendes Inlay hinterlegt</div>';
-        const additionalInlayMarkup = additionalInlays.length > 0
-            ? `<div class="tool-card-inlay tool-card-inlay--secondary"><strong>Weitere passende Inlays:</strong><ul class="tool-card-list">${additionalInlays.map(item => `<li>${escapeHtml(item.name)}${item.type ? ` (${escapeHtml(item.type)})` : ''}</li>`).join('')}</ul></div>`
-            : '';
-        const comboMarkup = combo
-            ? `<div class="tool-card-combo"><strong>Beste Kombination:</strong> ${escapeHtml(combo.lboxx.name)} + ${escapeHtml(combo.inlay.name)}</div>`
-            : '<div class="tool-card-combo tool-card-combo--empty">Keine klare L-BOXX/Inlay-Kombi gefunden</div>';
+        const bestInlayMarkup = bestInlay
+            ? `<div class="tool-card-combo"><strong>Bestes Geräte-Inlay:</strong> ${escapeHtml(bestInlay.name)}${bestInlay.type ? ` (${escapeHtml(bestInlay.type)})` : ''}</div>`
+            : '<div class="tool-card-combo tool-card-combo--empty">Kein passendes Geräte-Inlay gefunden</div>';
         card.innerHTML = `
             <div class="tool-card-image">
                 <img class="tool-card-img" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(tool.name)}" loading="lazy">
@@ -62,10 +59,9 @@ const ui = (() => {
             </div>
             ${tool.description ? `<p class="tool-card-description">${escapeHtml(tool.description)}</p>` : ''}
             ${badges ? `<div class="tool-card-meta">${badges}</div>` : ''}
-            ${comboMarkup}
+            ${bestInlayMarkup}
             ${lboxxMarkup}
             ${directInlayMarkup}
-            ${additionalInlayMarkup}
             <button type="button" class="tool-card-save" data-tool-id="${escapeHtml(tool.id)}" aria-pressed="${favorite ? 'true' : 'false'}">
                 ${favorite ? 'Gespeichert' : 'Speichern'}
             </button>
@@ -95,11 +91,13 @@ const ui = (() => {
             state.removeFavorite(toolId);
             buttonEl.textContent = 'Speichern';
             buttonEl.setAttribute('aria-pressed', 'false');
+            void renderSavedTools();
             return;
         }
         state.addFavorite(toolId);
         buttonEl.textContent = 'Gespeichert';
         buttonEl.setAttribute('aria-pressed', 'true');
+        void renderSavedTools();
     };
     const buildToolPlaceholder = (name = 'Tool') => {
         const initials = name
@@ -141,9 +139,31 @@ const ui = (() => {
         compact: elements.filterCompact?.checked || false,
         pro: elements.filterPro?.checked || false,
     });
+    const renderSavedTools = async () => {
+        if (!elements.savedToolsContainer || typeof state === 'undefined' || !state.getCachedTools || !state.getFavorites) return;
+        const tools = await state.getCachedTools();
+        const favorites = state.getFavorites();
+        const favoriteTools = tools.filter(tool => favorites.includes(tool.id));
+        if (favoriteTools.length === 0) {
+            elements.savedToolsContainer.innerHTML = '<div class="saved-tools-empty">Noch keine Tools gespeichert.</div>';
+            return;
+        }
+        elements.savedToolsContainer.innerHTML = `
+            <div class="saved-tools-list">
+                ${favoriteTools.map(tool => `
+                    <article class="saved-tool-chip" data-tool-id="${escapeHtml(tool.id)}">
+                        <div>
+                            <strong>${escapeHtml(tool.name)}</strong>
+                            <div class="saved-tool-chip-meta">${escapeHtml(tool.sku || '')}</div>
+                        </div>
+                    </article>
+                `).join('')}
+            </div>
+        `;
+    };
     return {
         init, clearResults, showPlaceholder, showLoading, showError, showNoResults,
         createToolCard, renderResults, scrollToTop, getSearchQuery, setSearchQuery,
-        getFilters, getElement,
+        getFilters, getElement, renderSavedTools,
     };
 })();

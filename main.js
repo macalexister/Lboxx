@@ -22,6 +22,7 @@ window.APP = (() => {
         await state.cacheTools(enrichedTools);
         await search.init(enrichedTools);
         console.log('[APP] ✓ Search module ready');
+        ui.renderSavedTools();
         results.init();
         console.log('[APP] ✓ Results module ready');
         setupEventHandlers();
@@ -85,12 +86,11 @@ window.APP = (() => {
 
     const enrichToolsWithLboxx = (tools, lboxxData) => {
         if (!lboxxData || !Array.isArray(lboxxData.lboxxVariants)) {
-            return tools.map(tool => ({ ...tool, recommendedLboxx: [], directInlays: [], additionalInlays: [], bestCombo: null }));
+            return tools.map(tool => ({ ...tool, recommendedLboxx: [], directInlays: [], bestInlay: null }));
         }
 
         const variants = lboxxData.lboxxVariants;
         const inlays = Array.isArray(lboxxData.inlays) ? lboxxData.inlays : [];
-        const inlayById = new Map(inlays.map(inlay => [inlay.id, inlay]));
         const bySize = new Map(variants.map(variant => [variant.size, variant]));
 
         return tools.map(tool => {
@@ -99,13 +99,7 @@ window.APP = (() => {
                 Array.isArray(inlay.compatibleTools) && inlay.compatibleTools.includes(tool.id)
             );
 
-            const sizeMatches = fits.map(size => bySize.get(size)).filter(Boolean);
-            const inlayLboxxMatches = directInlayMatches
-                .flatMap(inlay => (Array.isArray(inlay.forLboxx) ? inlay.forLboxx : []))
-                .map(size => bySize.get(size))
-                .filter(Boolean);
-
-            const recommendedLboxx = dedupeById([...inlayLboxxMatches, ...sizeMatches]).map(variant => ({
+            const recommendedLboxx = dedupeById(fits.map(size => bySize.get(size)).filter(Boolean)).map(variant => ({
                 id: variant.id,
                 name: variant.name,
                 size: variant.size,
@@ -117,36 +111,15 @@ window.APP = (() => {
                 name: inlay.name,
                 type: inlay.type || '',
                 productCode: inlay.productCode || '',
-                forLboxx: Array.isArray(inlay.forLboxx) ? inlay.forLboxx : [],
+                compatibleTools: Array.isArray(inlay.compatibleTools) ? inlay.compatibleTools : [],
             }));
-
-            const additionalInlayCandidates = dedupeById(
-                recommendedLboxx
-                    .map(lboxx => bySize.get(lboxx.size))
-                    .filter(Boolean)
-                    .flatMap(variant => Array.isArray(variant.compatibleInlays) ? variant.compatibleInlays : [])
-                    .map(inlayId => inlayById.get(inlayId))
-                    .filter(Boolean)
-            );
-            const directInlayIds = new Set(directInlays.map(inlay => inlay.id));
-            const additionalInlays = additionalInlayCandidates
-                .filter(inlay => !directInlayIds.has(inlay.id))
-                .map(inlay => ({
-                    id: inlay.id,
-                    name: inlay.name,
-                    type: inlay.type || '',
-                    productCode: inlay.productCode || '',
-                    forLboxx: Array.isArray(inlay.forLboxx) ? inlay.forLboxx : [],
-                }));
-
-            const bestCombo = pickBestCombo(recommendedLboxx, directInlays, additionalInlays, fits);
+            const bestInlay = pickBestInlay(directInlays);
 
             return {
                 ...tool,
                 recommendedLboxx: recommendedLboxx.slice(0, 3),
                 directInlays: directInlays.slice(0, 3),
-                additionalInlays: additionalInlays.slice(0, 3),
-                bestCombo,
+                bestInlay,
             };
         });
     };
@@ -162,37 +135,11 @@ window.APP = (() => {
         return uniqueItems;
     };
 
-    const pickBestCombo = (lboxxList, directInlays, additionalInlays, fits) => {
-        if (!Array.isArray(lboxxList) || lboxxList.length === 0) {
+    const pickBestInlay = (directInlays) => {
+        if (!Array.isArray(directInlays) || directInlays.length === 0) {
             return null;
         }
-
-        const rankedSources = [
-            { inlays: Array.isArray(directInlays) ? directInlays : [], source: 'direct', sourceWeight: 10 },
-            { inlays: Array.isArray(additionalInlays) ? additionalInlays : [], source: 'additional', sourceWeight: 0 },
-        ];
-
-        let best = null;
-        let bestScore = -1;
-        rankedSources.forEach(({ inlays, source, sourceWeight }) => {
-            lboxxList.forEach(lboxx => {
-                inlays.forEach(inlay => {
-                    const supportsLboxx = Array.isArray(inlay.forLboxx) && inlay.forLboxx.includes(lboxx.size);
-                    if (!supportsLboxx) return;
-
-                    const fitIndex = Array.isArray(fits) ? fits.indexOf(lboxx.size) : -1;
-                    const fitScore = fitIndex === -1 ? 0 : (3 - Math.min(fitIndex, 2));
-                    const score = sourceWeight + fitScore;
-
-                    if (score > bestScore) {
-                        bestScore = score;
-                        best = { lboxx, inlay, source };
-                    }
-                });
-            });
-        });
-
-        return best;
+        return directInlays[0];
     };
 
     const setupEventHandlers = () => {
