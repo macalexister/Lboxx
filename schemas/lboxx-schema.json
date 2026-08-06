@@ -1,32 +1,50 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "L-Boxx Catalog",
-  "description": "L-Boxx storage systems and inlay configurations",
+  "title": "L-Boxx Storage Catalog Schema",
+  "description": "L-Boxx storage systems, inlay configurations, and compatibility matrices",
   "type": "object",
   "properties": {
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic versioning (e.g., 1.0.0)",
       "example": "1.0.0"
     },
     "lastUpdated": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last update"
+    },
+    "totalVariants": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total count of L-Boxx variants"
+    },
+    "totalInlays": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total count of inlay configurations"
     },
     "lboxxVariants": {
       "type": "array",
-      "description": "Available L-Boxx models",
+      "description": "Available L-Boxx models with detailed specifications",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "size"],
+        "required": ["id", "name", "size", "productCode"],
+        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
             "pattern": "^lboxx-[a-z0-9-]+$",
+            "description": "Unique L-Boxx identifier",
             "example": "lboxx-mini"
           },
           "name": {
             "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "description": "L-Boxx product name",
             "example": "L-Boxx Mini"
           },
           "size": {
@@ -34,177 +52,563 @@
             "enum": ["mini", "small", "medium", "large", "xl"],
             "description": "Standard L-Boxx size category"
           },
+          "description": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "Detailed description of this L-Boxx variant"
+          },
+          "productCode": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]{8,12}$",
+            "description": "Official Bosch product code/SKU"
+          },
           "dimensions": {
             "type": "object",
+            "description": "External dimensions of L-Boxx",
             "required": ["width", "depth", "height"],
+            "additionalProperties": false,
             "properties": {
               "width": {
                 "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
                 "properties": {
-                  "value": { "type": "number" },
-                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                  "value": {
+                    "type": "number",
+                    "minimum": 1,
+                    "description": "Width value"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
                 }
               },
               "depth": {
                 "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
                 "properties": {
-                  "value": { "type": "number" },
-                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                  "value": {
+                    "type": "number",
+                    "minimum": 1,
+                    "description": "Depth value"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
                 }
               },
               "height": {
                 "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
                 "properties": {
-                  "value": { "type": "number" },
-                  "unit": { "type": "string", "enum": ["mm", "cm"] }
+                  "value": {
+                    "type": "number",
+                    "minimum": 1,
+                    "description": "Height value"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
                 }
               }
             }
           },
+          "internalDimensions": {
+            "type": "object",
+            "description": "Internal dimensions for storage planning",
+            "additionalProperties": false,
+            "properties": {
+              "width": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } },
+              "depth": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } },
+              "height": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } }
+            }
+          },
           "capacity": {
             "type": "object",
-            "description": "Storage capacity",
+            "description": "Storage capacity constraints",
+            "required": ["volume", "maxWeight"],
+            "additionalProperties": false,
             "properties": {
-              "volume": { "type": "number", "description": "Liters" },
-              "maxWeight": { "type": "number", "description": "kg" }
+              "volume": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0.1,
+                    "description": "Volume value"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["L", "ml"],
+                    "default": "L"
+                  }
+                },
+                "description": "Maximum storage volume"
+              },
+              "maxWeight": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "description": "Weight limit value"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["kg", "lbs"],
+                    "default": "kg"
+                  }
+                },
+                "description": "Maximum weight this L-Boxx can hold"
+              }
             }
           },
           "material": {
             "type": "string",
-            "example": "Polypropylene"
+            "enum": ["Polypropylene", "Plastic", "Metal", "Composite"],
+            "default": "Polypropylene",
+            "description": "Material composition"
           },
           "color": {
             "type": "string",
-            "enum": ["red", "black", "blue", "yellow"],
-            "example": "red"
+            "enum": ["red", "black", "blue", "yellow", "white", "green"],
+            "default": "red",
+            "description": "L-Boxx body color"
+          },
+          "weight": {
+            "type": "object",
+            "description": "L-Boxx empty weight",
+            "required": ["value", "unit"],
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0.1
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["kg", "lbs"],
+                "default": "kg"
+              }
+            }
           },
           "stackable": {
             "type": "boolean",
+            "default": true,
             "description": "Can be stacked with other L-Boxx units"
+          },
+          "maxStackHeight": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Maximum number of units that can be stacked"
+          },
+          "handles": {
+            "type": "object",
+            "description": "Handle configuration",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["plastic", "metal", "combo"],
+                "description": "Handle material type"
+              },
+              "ergonomic": {
+                "type": "boolean",
+                "description": "Has ergonomic features"
+              },
+              "carryCapacity": {
+                "type": "string",
+                "description": "Safe carrying capacity"
+              }
+            }
+          },
+          "latch": {
+            "type": "string",
+            "enum": ["metal-clip", "plastic-snap", "dual-lock"],
+            "description": "Latch mechanism type"
+          },
+          "weatherResistant": {
+            "type": "boolean",
+            "default": true,
+            "description": "Is weather/moisture resistant"
           },
           "compatibleInlays": {
             "type": "array",
-            "description": "IDs of compatible inlay types",
+            "description": "IDs of compatible inlay types (references to inlays)",
             "items": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^inlay-[a-z0-9-]+$"
             }
           },
           "accessories": {
             "type": "array",
             "description": "Available accessories for this variant",
             "items": {
-              "type": "string"
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "description": "Accessory ID" },
+                "name": { "type": "string", "description": "Accessory name" },
+                "type": { "type": "string", "enum": ["insert", "divider", "tray", "handle", "lock"] },
+                "compatible": { "type": "boolean", "description": "Is compatible with this L-Boxx" }
+              }
             }
-          },
-          "productCode": {
-            "type": "string"
           },
           "image": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "Product image URL"
+          },
+          "images": {
+            "type": "array",
+            "description": "Multiple product images/angles",
+            "items": { "type": "string", "format": "uri" }
+          },
+          "price": {
+            "type": "object",
+            "description": "Pricing information",
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "currency": { "type": "string", "enum": ["EUR", "USD", "GBP"], "default": "EUR" }
+            }
+          },
+          "releaseYear": {
+            "type": "integer",
+            "minimum": 2000,
+            "maximum": 2030,
+            "description": "Year this variant was released"
+          },
+          "availability": {
+            "type": "string",
+            "enum": ["in-stock", "discontinued", "pre-order"],
+            "default": "in-stock"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Additional notes or recommendations"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp of when added to catalog"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp of last modification"
           }
         }
       }
     },
     "inlays": {
       "type": "array",
-      "description": "Tool inlay configurations",
+      "description": "Tool inlay configurations for organizing tools within L-Boxx",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "type", "forLboxx"],
+        "required": ["id", "name", "type", "forLboxx", "productCode"],
+        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
             "pattern": "^inlay-[a-z0-9-]+$",
+            "description": "Unique inlay identifier",
             "example": "inlay-power-tools"
           },
           "name": {
             "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "description": "Inlay product name",
             "example": "Power Tools Inlay"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "Detailed description of this inlay"
           },
           "type": {
             "type": "string",
-            "enum": ["foam", "organizer", "divider", "drawer", "custom"],
-            "description": "Inlay type"
+            "enum": ["foam", "organizer", "divider", "drawer", "tray", "custom"],
+            "description": "Inlay type/configuration style"
           },
           "forLboxx": {
             "type": "array",
-            "description": "L-Boxx sizes this inlay fits",
+            "description": "L-Boxx sizes this inlay is compatible with",
             "items": {
               "type": "string",
               "enum": ["mini", "small", "medium", "large", "xl"]
+            },
+            "minItems": 1
+          },
+          "productCode": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]{8,12}$",
+            "description": "Official Bosch product code/SKU"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Inlay dimensions",
+            "additionalProperties": false,
+            "properties": {
+              "width": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } },
+              "depth": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } },
+              "height": { "type": "object", "properties": { "value": { "type": "number" }, "unit": { "type": "string", "enum": ["mm", "cm"] } } }
+            }
+          },
+          "weight": {
+            "type": "object",
+            "description": "Inlay weight",
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "unit": { "type": "string", "enum": ["kg", "g"], "default": "kg" }
             }
           },
           "capacity": {
             "type": "integer",
-            "description": "Number of compartments/slots"
-          },
-          "compatibleTools": {
-            "type": "array",
-            "description": "IDs of tools this inlay fits",
-            "items": {
-              "type": "string"
-            }
+            "minimum": 1,
+            "description": "Number of compartments/slots for organizing tools"
           },
           "material": {
             "type": "string",
-            "example": "Foam (EVA)"
+            "enum": ["Foam (EVA)", "Foam (PE)", "Polycarbonate", "Plastic", "Foam & Plastic"],
+            "description": "Inlay material composition"
           },
           "features": {
             "type": "array",
+            "description": "Key features of this inlay",
             "items": {
               "type": "string"
             },
-            "example": ["removable-dividers", "anti-slip", "dust-resistant"]
+            "example": ["removable-dividers", "anti-slip", "dust-resistant", "clear-view", "adjustable-slots"]
           },
-          "productCode": {
-            "type": "string"
+          "compatibleTools": {
+            "type": "array",
+            "description": "Tool IDs this inlay is designed to fit (references to tools)",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            }
+          },
+          "toolCapacityGuide": {
+            "type": "object",
+            "description": "How many tools of each type this inlay can hold",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "maxWeight": {
+            "type": "object",
+            "description": "Maximum weight this inlay can safely hold",
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "unit": { "type": "string", "enum": ["kg", "lbs"], "default": "kg" }
+            }
           },
           "image": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "description": "Inlay product image URL"
+          },
+          "images": {
+            "type": "array",
+            "description": "Multiple inlay images",
+            "items": { "type": "string", "format": "uri" }
+          },
+          "price": {
+            "type": "object",
+            "description": "Pricing information",
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "currency": { "type": "string", "enum": ["EUR", "USD", "GBP"], "default": "EUR" }
+            }
+          },
+          "availability": {
+            "type": "string",
+            "enum": ["in-stock", "discontinued", "pre-order"],
+            "default": "in-stock"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Usage notes and recommendations"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
     },
     "preConfiguredSets": {
       "type": "array",
-      "description": "Pre-planned L-Boxx configurations",
+      "description": "Pre-planned L-Boxx configurations for specific professions",
       "items": {
         "type": "object",
+        "required": ["id", "name", "lboxx"],
+        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^set-[a-z0-9-]+$"
+            "pattern": "^set-[a-z0-9-]+$",
+            "description": "Unique preset configuration ID"
           },
           "name": {
             "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "description": "Preset configuration name",
             "example": "Electrician's Starter Kit"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 300,
+            "description": "Description of what this preset includes"
           },
           "lboxx": {
             "type": "string",
-            "description": "L-Boxx ID for this set"
+            "pattern": "^lboxx-[a-z0-9-]+$",
+            "description": "L-Boxx ID for this configuration"
           },
           "inlays": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Inlay IDs included"
+            "description": "Inlay IDs included in this configuration",
+            "items": {
+              "type": "string",
+              "pattern": "^inlay-[a-z0-9-]+$"
+            }
           },
           "includedTools": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Tool IDs that come with this set"
+            "description": "Tool IDs included in this preset",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            }
           },
           "useCase": {
             "type": "string",
+            "maxLength": 200,
+            "description": "Target profession or use case",
             "example": "Electrical installation and maintenance"
+          },
+          "profession": {
+            "type": "string",
+            "enum": ["electrician", "plumber", "carpenter", "metalworker", "general"],
+            "description": "Target profession"
+          },
+          "skillLevel": {
+            "type": "string",
+            "enum": ["beginner", "intermediate", "advanced"],
+            "description": "Recommended skill level"
+          },
+          "totalWeight": {
+            "type": "object",
+            "description": "Total weight when fully loaded",
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "unit": { "type": "string", "enum": ["kg"], "default": "kg" }
+            }
+          },
+          "estimatedPrice": {
+            "type": "object",
+            "description": "Estimated total cost for this preset",
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "currency": { "type": "string", "enum": ["EUR", "USD", "GBP"], "default": "EUR" }
+            }
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "Configuration image URL"
+          },
+          "popularity": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of users who have selected this preset"
+          },
+          "ratings": {
+            "type": "object",
+            "description": "User ratings for this preset",
+            "additionalProperties": false,
+            "properties": {
+              "average": { "type": "number", "minimum": 1, "maximum": 5 },
+              "count": { "type": "integer", "minimum": 0 },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
+                    "comment": { "type": "string" },
+                    "author": { "type": "string" },
+                    "date": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "compatibilityMatrix": {
+      "type": "object",
+      "description": "Compatibility mapping for quick lookups",
+      "additionalProperties": false,
+      "properties": {
+        "lboxxToInlay": {
+          "type": "object",
+          "description": "Maps L-Boxx IDs to compatible inlay IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "inlayToLboxx": {
+          "type": "object",
+          "description": "Maps inlay IDs to compatible L-Boxx sizes",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["mini", "small", "medium", "large", "xl"] }
+          }
+        },
+        "toolToInlay": {
+          "type": "object",
+          "description": "Maps tool IDs to compatible inlay IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
           }
         }
       }
     }
   },
-  "required": ["version", "lboxxVariants", "inlays"]
+  "required": ["version", "lastUpdated", "lboxxVariants", "inlays"],
+  "additionalProperties": false
 }
