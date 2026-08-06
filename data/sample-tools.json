@@ -1,0 +1,593 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:52:00Z",
+  "totalTools": 12,
+  "categories": [
+    "Power Drills",
+    "Impact Drivers",
+    "Angle Grinders",
+    "Circular Saws",
+    "Orbital Sanders",
+    "Jigsaws",
+    "Measuring Tools",
+    "Work Lights"
+  ],
+  "tools": [
+    {
+      "id": "bosch-gsr-18v-compact",
+      "name": "Bosch GSR 18V-Compact Drill",
+      "category": "Power Drills",
+      "type": "cordless",
+      "description": "Compact and lightweight drill perfect for tight spaces. Ideal for drilling in wood, metal, and plastic. Features 2-speed transmission for versatile applications. 13mm chuck for standard bits.",
+      "productCode": "06019C5072",
+      "modelNumber": "GSR 18V-Compact",
+      "manufacturer": "Bosch",
+      "releaseYear": 2024,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "power": "600W",
+        "speed": "0-1500 RPM",
+        "maxTorque": "48 Nm",
+        "chuckSize": "13mm",
+        "weight": "1.6 kg",
+        "soundLevel": "84 dB",
+        "brakingTime": "<1 second"
+      },
+      "dimensions": {
+        "length": { "value": 179, "unit": "mm" },
+        "width": { "value": 110, "unit": "mm" },
+        "height": { "value": 68, "unit": "mm" }
+      },
+      "weight": {
+        "value": 1.6,
+        "unit": "kg"
+      },
+      "bestFor": ["drilling", "driving", "wood work", "metal work"],
+      "fits": ["small", "medium"],
+      "accessories": ["bits-set-13mm", "chuck-adapter"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["compact", "cordless", "18v", "professional", "lightweight"],
+      "features": ["2-speed transmission", "compact design", "soft-grip", "electronic speed control"],
+      "price": {
+        "value": 89.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gsr-18v-compact.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gdr-18v-impact",
+      "name": "Bosch GDR 18V-EC Impact Driver",
+      "category": "Impact Drivers",
+      "type": "cordless",
+      "description": "High-torque impact driver for fast driving and drilling. 3-stage electronic speed control for precise control. Delivers 170 Nm of torque for demanding fastening applications. Ideal for construction and assembly work.",
+      "productCode": "06019B2174",
+      "modelNumber": "GDR 18V-EC",
+      "manufacturer": "Bosch",
+      "releaseYear": 2025,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "power": "750W",
+        "maxTorque": "170 Nm",
+        "speed": "0-2800 RPM",
+        "weight": "2.0 kg",
+        "chuckSize": "1/4 inch hex",
+        "soundLevel": "89 dB",
+        "vibration": "6.2 m/s²"
+      },
+      "dimensions": {
+        "length": { "value": 172, "unit": "mm" },
+        "width": { "value": 105, "unit": "mm" },
+        "height": { "value": 75, "unit": "mm" }
+      },
+      "weight": {
+        "value": 2.0,
+        "unit": "kg"
+      },
+      "bestFor": ["driving fasteners", "impact drilling", "screw driving", "construction"],
+      "fits": ["small", "medium", "large"],
+      "accessories": ["impact-bits-set", "socket-adapter"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["impact", "high-torque", "18v", "professional", "fast-driving"],
+      "features": ["3-stage speed control", "impact mechanism", "anti-vibration", "LED work light"],
+      "price": {
+        "value": 129.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gdr-18v-ec.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2025-03-20T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gws-18v-125",
+      "name": "Bosch GWS 18V-125 Angle Grinder",
+      "category": "Angle Grinders",
+      "type": "cordless",
+      "description": "Powerful angle grinder for cutting, grinding, and polishing. 125mm disc for medium to large cutting tasks. Electronic speed control maintains constant speed under load. Compact design with anti-vibration technology.",
+      "productCode": "06019C9000",
+      "modelNumber": "GWS 18V-125",
+      "manufacturer": "Bosch",
+      "releaseYear": 2026,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "power": "1000W",
+        "discSize": "125mm",
+        "speed": "6500 RPM",
+        "weight": "2.5 kg",
+        "soundLevel": "92 dB",
+        "vibration": "8.5 m/s²"
+      },
+      "dimensions": {
+        "length": { "value": 224, "unit": "mm" },
+        "width": { "value": 142, "unit": "mm" },
+        "height": { "value": 128, "unit": "mm" }
+      },
+      "weight": {
+        "value": 2.5,
+        "unit": "kg"
+      },
+      "bestFor": ["grinding", "cutting metal", "polishing", "surface preparation"],
+      "fits": ["medium", "large", "xl"],
+      "accessories": ["grinding-wheel-125mm", "cutting-disc-125mm"],
+      "batteryCompatible": ["ProCORE"],
+      "tags": ["professional", "cordless", "18v", "high-power", "grinding"],
+      "features": ["electronic speed control", "anti-vibration technology", "side handle", "protective guard"],
+      "price": {
+        "value": 199.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gws-18v-125.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2026-01-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gks-18v-circular-saw",
+      "name": "Bosch GKS 18V Circular Saw",
+      "category": "Circular Saws",
+      "type": "cordless",
+      "description": "Handheld cordless circular saw for cross-cutting and rip-cutting in wood and composite materials. 165mm blade for depth of cut up to 57mm. LED work light and dust extraction for clean workspace.",
+      "productCode": "06016B3100",
+      "modelNumber": "GKS 18V",
+      "manufacturer": "Bosch",
+      "releaseYear": 2025,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "power": "800W",
+        "bladeSize": "165mm",
+        "speed": "4700 RPM",
+        "weight": "2.8 kg",
+        "soundLevel": "90 dB",
+        "dustCapacity": "0.8L"
+      },
+      "dimensions": {
+        "length": { "value": 310, "unit": "mm" },
+        "width": { "value": 168, "unit": "mm" },
+        "height": { "value": 156, "unit": "mm" }
+      },
+      "weight": {
+        "value": 2.8,
+        "unit": "kg"
+      },
+      "bestFor": ["cross-cutting", "rip-cutting", "wood cutting", "deck construction"],
+      "fits": ["large", "xl"],
+      "accessories": ["saw-blade-165mm", "dust-collection-bag"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["saw", "cordless", "18v", "professional", "cutting"],
+      "features": ["LED work light", "dust extraction", "bevel cut up to 45°", "electronic speed control"],
+      "price": {
+        "value": 159.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gks-18v.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2025-02-15T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gex-125-orbital-sander",
+      "name": "Bosch GEX 125-1 Orbital Sander",
+      "category": "Orbital Sanders",
+      "type": "corded",
+      "description": "Powerful orbital sander for smooth surface finishing. Constant electronic speed control maintains consistent sanding performance. 125mm orbit diameter with efficient dust collection. Ideal for wood preparation and finishing.",
+      "productCode": "06013A9050",
+      "modelNumber": "GEX 125-1",
+      "manufacturer": "Bosch",
+      "releaseYear": 2023,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "230V",
+        "power": "250W",
+        "orbitDiameter": "125mm",
+        "speed": "4000 rpm",
+        "weight": "2.2 kg",
+        "soundLevel": "85 dB",
+        "dustCapacity": "1.2L"
+      },
+      "dimensions": {
+        "length": { "value": 275, "unit": "mm" },
+        "width": { "value": 180, "unit": "mm" },
+        "height": { "value": 98, "unit": "mm" }
+      },
+      "weight": {
+        "value": 2.2,
+        "unit": "kg"
+      },
+      "bestFor": ["sanding", "wood finishing", "surface preparation", "paint removal"],
+      "fits": ["large"],
+      "accessories": ["sanding-pads-125mm", "dust-bag"],
+      "batteryCompatible": [],
+      "tags": ["sander", "corded", "professional", "finishing", "smooth"],
+      "features": ["constant speed control", "dust collection", "ergonomic grip", "efficient motor"],
+      "price": {
+        "value": 119.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gex-125-1.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2023-06-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gst-90e-jigsaw",
+      "name": "Bosch GST 90E Jigsaw",
+      "category": "Jigsaws",
+      "type": "corded",
+      "description": "Powerful jigsaw for precise cutting in wood, plastic, and metals. Adjustable cutting angle up to 45° and variable speed for different materials. Efficient dust collection system.",
+      "productCode": "06012A7000",
+      "modelNumber": "GST 90E",
+      "manufacturer": "Bosch",
+      "releaseYear": 2024,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "230V",
+        "power": "650W",
+        "strokeLength": "25mm",
+        "speed": "3000 rpm",
+        "weight": "3.2 kg",
+        "soundLevel": "88 dB"
+      },
+      "dimensions": {
+        "length": { "value": 340, "unit": "mm" },
+        "width": { "value": 125, "unit": "mm" },
+        "height": { "value": 190, "unit": "mm" }
+      },
+      "weight": {
+        "value": 3.2,
+        "unit": "kg"
+      },
+      "bestFor": ["cutting curves", "ripping", "crosscutting", "detailed work"],
+      "fits": ["xl"],
+      "accessories": ["jigsaw-blade-set", "dust-bag"],
+      "batteryCompatible": [],
+      "tags": ["jigsaw", "corded", "professional", "cutting", "precision"],
+      "features": ["variable speed", "bevel cut capability", "dust extraction", "LED light"],
+      "price": {
+        "value": 129.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gst-90e.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2024-03-20T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-pbs-75a-belt-sander",
+      "name": "Bosch PBS 75A Belt Sander",
+      "category": "Belt Sanders",
+      "type": "corded",
+      "description": "Industrial-grade belt sander for fast material removal. 75mm x 533mm belt for large sanding surfaces. Dust extraction and vacuum connection for clean operation.",
+      "productCode": "06032A1000",
+      "modelNumber": "PBS 75A",
+      "manufacturer": "Bosch",
+      "releaseYear": 2023,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "230V",
+        "power": "350W",
+        "beltSize": "75x533mm",
+        "speed": "400 m/min",
+        "weight": "4.8 kg",
+        "soundLevel": "90 dB"
+      },
+      "dimensions": {
+        "length": { "value": 550, "unit": "mm" },
+        "width": { "value": 180, "unit": "mm" },
+        "height": { "value": 165, "unit": "mm" }
+      },
+      "weight": {
+        "value": 4.8,
+        "unit": "kg"
+      },
+      "bestFor": ["material removal", "floor sanding", "wood preparation", "large surfaces"],
+      "fits": ["xl"],
+      "accessories": ["sanding-belt-75x533", "vacuum-adapter"],
+      "batteryCompatible": [],
+      "tags": ["sander", "belt", "corded", "professional", "heavy-duty"],
+      "features": ["fast cutting", "dust extraction", "variable speed", "robust construction"],
+      "price": {
+        "value": 199.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/pbs-75a.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2023-05-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-pwr-180-multi-tool",
+      "name": "Bosch PWR 180 Multi-Tool",
+      "category": "Multi-Tools",
+      "type": "corded",
+      "description": "Versatile cordless multi-tool for cutting, grinding, sanding, and polishing. Multiple accessory compatibility for diverse applications. Perfect for DIY and professional users.",
+      "productCode": "06033A0000",
+      "modelNumber": "PWR 180",
+      "manufacturer": "Bosch",
+      "releaseYear": 2024,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "power": "550W",
+        "speed": "20000 rpm",
+        "weight": "1.3 kg",
+        "soundLevel": "82 dB"
+      },
+      "dimensions": {
+        "length": { "value": 156, "unit": "mm" },
+        "width": { "value": 85, "unit": "mm" },
+        "height": { "value": 78, "unit": "mm" }
+      },
+      "weight": {
+        "value": 1.3,
+        "unit": "kg"
+      },
+      "bestFor": ["cutting", "grinding", "sanding", "polishing", "general maintenance"],
+      "fits": ["small", "medium"],
+      "accessories": ["multi-tool-blade-set", "grinding-wheel", "sanding-pads"],
+      "batteryCompatible": ["CoolPack"],
+      "tags": ["multi-tool", "cordless", "18v", "versatile", "compact"],
+      "features": ["multiple applications", "accessory-free", "compact design", "LED indicator"],
+      "price": {
+        "value": 149.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "2 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/pwr-180.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2024-02-25T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-glm-100c-laser-measure",
+      "name": "Bosch GLM 100C Laser Measure",
+      "category": "Measuring Tools",
+      "type": "battery",
+      "description": "Digital laser distance meter for precise measurements up to 100 meters. Stores up to 20 measurements. Backlit display for easy readability. Perfect for construction and renovation projects.",
+      "productCode": "06010725002",
+      "modelNumber": "GLM 100C",
+      "manufacturer": "Bosch",
+      "releaseYear": 2025,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "1.5V",
+        "maxRange": "100m",
+        "accuracy": "±1.5mm",
+        "weight": "0.17 kg",
+        "soundLevel": "50 dB"
+      },
+      "dimensions": {
+        "length": { "value": 118, "unit": "mm" },
+        "width": { "value": 65, "unit": "mm" },
+        "height": { "value": 35, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.17,
+        "unit": "kg"
+      },
+      "bestFor": ["measuring distances", "area calculation", "construction planning", "renovation"],
+      "fits": ["mini", "small"],
+      "accessories": ["measurement-software", "carrying-pouch"],
+      "batteryCompatible": ["AAA"],
+      "tags": ["measuring", "laser", "digital", "professional", "lightweight"],
+      "features": ["laser technology", "digital display", "measurement storage", "backlit"],
+      "price": {
+        "value": 89.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "2 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/glm-100c.jpg",
+      "certifications": ["CE"],
+      "createdAt": "2025-04-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gli-18v-work-light",
+      "name": "Bosch GLI 18V Cordless Work Light",
+      "category": "Work Lights",
+      "type": "cordless",
+      "description": "Powerful cordless work light providing 1000 lumens brightness. Ideal for dark work areas. Adjustable stand for hands-free operation. Water-resistant design for outdoor use.",
+      "productCode": "06014A4070",
+      "modelNumber": "GLI 18V",
+      "manufacturer": "Bosch",
+      "releaseYear": 2024,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "brightness": "1000 lumens",
+        "runtime": "20 hours",
+        "weight": "0.72 kg",
+        "soundLevel": "30 dB"
+      },
+      "dimensions": {
+        "length": { "value": 240, "unit": "mm" },
+        "width": { "value": 85, "unit": "mm" },
+        "height": { "value": 150, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.72,
+        "unit": "kg"
+      },
+      "bestFor": ["workspace lighting", "night work", "dark areas", "outdoor illumination"],
+      "fits": ["small", "medium"],
+      "accessories": ["stand-adapter", "carrying-handle"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["work-light", "cordless", "18v", "bright", "portable"],
+      "features": ["1000 lumens", "adjustable stand", "water-resistant", "long runtime"],
+      "price": {
+        "value": 79.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "2 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gli-18v.jpg",
+      "certifications": ["CE", "IP54"],
+      "createdAt": "2024-01-30T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-bat-18v-coolpack",
+      "name": "Bosch BAT 18V-2.0 CoolPack Battery",
+      "category": "Batteries & Chargers",
+      "type": "battery",
+      "description": "2.0 Ah lithium-ion battery pack compatible with all Bosch 18V CoolPack tools. Lightweight and durable. Fast charging in 30 minutes.",
+      "productCode": "1600A005B0",
+      "modelNumber": "BAT 18V-2.0",
+      "manufacturer": "Bosch",
+      "releaseYear": 2024,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "capacity": "2.0 Ah",
+        "energy": "36 Wh",
+        "weight": "0.25 kg",
+        "chargeTime": "30 minutes"
+      },
+      "dimensions": {
+        "length": { "value": 110, "unit": "mm" },
+        "width": { "value": 65, "unit": "mm" },
+        "height": { "value": 50, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.25,
+        "unit": "kg"
+      },
+      "bestFor": ["tool power", "cordless operation", "backup power"],
+      "fits": ["mini", "small"],
+      "accessories": ["battery-charger"],
+      "batteryCompatible": [],
+      "tags": ["battery", "18v", "lithium-ion", "coolpack", "compact"],
+      "features": ["fast charging", "long runtime", "lightweight", "durable"],
+      "price": {
+        "value": 39.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Battery capacity and defects"
+      },
+      "image": "https://example.com/images/bat-18v-2.0.jpg",
+      "certifications": ["CE"],
+      "createdAt": "2024-01-05T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-al-1130cv-charger",
+      "name": "Bosch AL 1130 CV Battery Charger",
+      "category": "Batteries & Chargers",
+      "type": "charger",
+      "description": "Multi-voltage charger for 10.8V, 14.4V, and 18V Li-ion batteries. Intelligent charging manages temperature and extends battery life. LED status indicator.",
+      "productCode": "1600A005B1",
+      "modelNumber": "AL 1130 CV",
+      "manufacturer": "Bosch",
+      "releaseYear": 2023,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "220-240V",
+        "chargeTime": "30 minutes",
+        "weight": "0.38 kg"
+      },
+      "dimensions": {
+        "length": { "value": 140, "unit": "mm" },
+        "width": { "value": 90, "unit": "mm" },
+        "height": { "value": 75, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.38,
+        "unit": "kg"
+      },
+      "bestFor": ["battery charging", "tool charging", "multiuse"],
+      "fits": ["mini", "small"],
+      "accessories": [],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["charger", "multi-voltage", "professional", "intelligent"],
+      "features": ["multi-voltage support", "intelligent charging", "LED indicator", "compact"],
+      "price": {
+        "value": 59.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "2 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/al-1130cv.jpg",
+      "certifications": ["CE"],
+      "createdAt": "2023-06-15T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    }
+  ]
+}

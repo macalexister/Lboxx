@@ -1,0 +1,210 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:52:00Z",
+  "totalVariants": 4,
+  "totalInlays": 5,
+  "lboxxVariants": [
+    {
+      "id": "lboxx-mini",
+      "name": "L-Boxx Mini",
+      "size": "mini",
+      "description": "Compact storage container for small tools and accessories. Perfect for portable tool kits and travel. Lightweight with stackable design.",
+      "productCode": "1600A012702",
+      "dimensions": {
+        "width": { "value": 170, "unit": "mm" },
+        "depth": { "value": 105, "unit": "mm" },
+        "height": { "value": 45, "unit": "mm" }
+      },
+      "internalDimensions": {
+        "width": { "value": 155, "unit": "mm" },
+        "depth": { "value": 90, "unit": "mm" },
+        "height": { "value": 40, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.8,
+        "unit": "kg"
+      },
+      "weightEmpty": {
+        "value": 0.35,
+        "unit": "kg"
+      },
+      "maxWeightCapacity": {
+        "value": 8,
+        "unit": "kg"
+      },
+      "material": "Polypropylene copolymer",
+      "color": "Black",
+      "features": ["stackable", "lockable", "carrying-handles", "water-resistant"],
+      "compatibleInlays": ["inlay-foam-small-drill", "inlay-wood-small-measurement"],
+      "nestingCapacity": 5,
+      "inlayCount": 1,
+      "price": {
+        "value": 44.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "5 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/lboxx-mini.jpg",
+      "createdAt": "2023-01-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "lboxx-small",
+      "name": "L-Boxx Small",
+      "size": "small",
+      "description": "Small storage container for hand and power tools. Ideal for DIY users and professionals. Stackable with secure locking mechanism.",
+      "productCode": "1600A012703",
+      "dimensions": {
+        "width": { "value": 267, "unit": "mm" },
+        "depth": { "value": 157, "unit": "mm" },
+        "height": { "value": 63, "unit": "mm" }
+      },
+      "internalDimensions": {
+        "width": { "value": 250, "unit": "mm" },
+        "depth": { "value": 140, "unit": "mm" },
+        "height": { "value": 58, "unit": "mm" }
+      },
+      "weight": {
+        "value": 2.2,
+        "unit": "kg"
+      },
+      "weightEmpty": {
+        "value": 0.95,
+        "unit": "kg"
+      },
+      "maxWeightCapacity": {
+        "value": 25,
+        "unit": "kg"
+      },
+      "material": "Polypropylene copolymer",
+      "color": "Black",
+      "features": ["stackable", "lockable", "carrying-handles", "water-resistant", "modular"],
+      "compatibleInlays": ["inlay-foam-small-drill", "inlay-wood-small-measurement"],
+      "nestingCapacity": 3,
+      "inlayCount": 1,
+      "price": {
+        "value": 74.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "5 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/lboxx-small.jpg",
+      "createdAt": "2023-02-15T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "lboxx-medium",
+      "name": "L-Boxx Medium",
+      "size": "medium",
+      "description": "Medium-sized storage container for comprehensive tool sets. Professional-grade construction with secure compartmentation. Excellent for job sites.",
+      "productCode": "1600A012704",
+      "dimensions": {
+        "width": { "value": 357, "unit": "mm" },
+        "depth": { "value": 207, "unit": "mm" },
+        "height": { "value": 83, "unit": "mm" }
+      },
+      "internalDimensions": {
+        "width": { "value": 340, "unit": "mm" },
+        "depth": { "value": 190, "unit": "mm" },
+        "height": { "value": 78, "unit": "mm" }
+      },
+      "weight": {
+        "value": 3.8,
+        "unit": "kg"
+      },
+      "weightEmpty": {
+        "value": 1.5,
+        "unit": "kg"
+      },
+      "maxWeightCapacity": {
+        "value": 40,
+        "unit": "kg"
+      },
+      "material": "Polypropylene copolymer",
+      "color": "Black",
+      "features": ["stackable", "lockable", "carrying-handles", "water-resistant", "impact-resistant"],
+      "compatibleInlays": ["inlay-foam-medium-angle-grinder"],
+      "nestingCapacity": 2,
+      "inlayCount": 1,
+      "price": {
+        "value": 99.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "5 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/lboxx-medium.jpg",
+      "createdAt": "2023-03-20T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "lboxx-large",
+      "name": "L-Boxx Large",
+      "size": "large",
+      "description": "Large storage container for extensive tool collections. Premium construction for professional use. Excellent nesting capability.",
+      "productCode": "1600A012705",
+      "dimensions": {
+        "width": { "value": 442, "unit": "mm" },
+        "depth": { "value": 252, "unit": "mm" },
+        "height": { "value": 103, "unit": "mm" }
+      },
+      "internalDimensions": {
+        "width": { "value": 425, "unit": "mm" },
+        "depth": { "value": 235, "unit": "mm" },
+        "height": { "value": 98, "unit": "mm" }
+      },
+      "weight": {
+        "value": 5.5,
+        "unit": "kg"
+      },
+      "weightEmpty": {
+        "value": 2.1,
+        "unit": "kg"
+      },
+      "maxWeightCapacity": {
+        "value": 60,
+        "unit": "kg"
+      },
+      "material": "Polypropylene copolymer with reinforced edges",
+      "color": "Black",
+      "features": ["stackable", "lockable", "carrying-handles", "water-resistant", "impact-resistant", "professional-grade"],
+      "compatibleInlays": ["inlay-plastic-large-saw"],
+      "nestingCapacity": 1,
+      "inlayCount": 1,
+      "price": {
+        "value": 129.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "5 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/lboxx-large.jpg",
+      "createdAt": "2023-04-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    }
+  ],
+  "compatibilityMatrix": {
+    "bosch-gsr-18v-compact": ["lboxx-mini", "lboxx-small", "lboxx-medium"],
+    "bosch-gdr-18v-impact": ["lboxx-mini", "lboxx-small", "lboxx-medium", "lboxx-large"],
+    "bosch-gws-18v-125": ["lboxx-medium", "lboxx-large"],
+    "bosch-gks-18v-circular-saw": ["lboxx-large"],
+    "bosch-gex-125-orbital-sander": ["lboxx-large"],
+    "bosch-gst-90e-jigsaw": ["lboxx-large"],
+    "bosch-pbs-75a-belt-sander": ["lboxx-large"],
+    "bosch-pwr-180-multi-tool": ["lboxx-mini", "lboxx-small", "lboxx-medium"],
+    "bosch-glm-100c-laser-measure": ["lboxx-mini", "lboxx-small"],
+    "bosch-gli-18v-work-light": ["lboxx-small", "lboxx-medium"],
+    "bosch-bat-18v-coolpack": ["lboxx-mini", "lboxx-small"],
+    "bosch-al-1130cv-charger": ["lboxx-small", "lboxx-medium"]
+  }
+}

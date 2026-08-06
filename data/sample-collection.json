@@ -1,60 +1,43 @@
 {
-  "id": "collection-electrician-starter",
-  "name": "Electrician Starter Kit",
-  "description": "Basic tools for starting electrical work. Perfect for apprentices or small jobs.",
-  "createdAt": "2026-08-01T10:30:00Z",
-  "updatedAt": "2026-08-06T12:00:00Z",
-  "category": "electrician",
-  "lboxx": {
-    "id": "lboxx-medium",
-    "inlays": ["inlay-power-tools", "inlay-bits"]
+  "id": "collection-alex-pro-workshop-001",
+  "name": "Alex's Professional Workshop Collection",
+  "description": "Complete professional tool collection for a carpentry and general construction workshop. Organized in 3 L-Boxx containers with specialized inlays for optimal storage and quick access.",
+  "createdAt": "2026-01-15T09:00:00Z",
+  "updatedAt": "2026-08-06T12:45:00Z",
+  "owner": {
+    "userId": "user-alex-12345",
+    "email": "alex@example.com",
+    "name": "Alex Johnson"
   },
-  "items": [
+  "toolsList": [
     {
-      "id": "item-1",
       "toolId": "bosch-gsr-18v-compact",
       "quantity": 1,
-      "location": "Drawer 1, Slot 1",
-      "condition": "perfect",
-      "notes": "Recently serviced, drill bits in storage case",
-      "customAttributes": {
-        "lastMaintenance": "2026-08-01",
-        "purchaseDate": "2025-12-15"
-      }
+      "addedAt": "2026-01-15T09:00:00Z",
+      "notes": "Primary compact drill for overhead work"
     },
     {
-      "id": "item-2",
       "toolId": "bosch-gdr-18v-impact",
       "quantity": 1,
-      "location": "Drawer 1, Slot 2",
-      "condition": "good",
-      "notes": "Working perfectly, some scuffing on body",
-      "customAttributes": {
-        "battery": "ProCORE 5.5Ah",
-        "purchaseDate": "2026-01-20"
-      }
-    },
-    {
-      "id": "item-3",
-      "toolId": "bosch-gws-18v-125",
-      "quantity": 1,
-      "location": "Cabinet, Left Side",
-      "condition": "good",
-      "notes": "Grinding disc included",
-      "customAttributes": {
-        "purchaseDate": "2026-06-10",
-        "warranty": "3 years"
-      }
+      "addedAt": "2026-01-20T14:30:00Z",
+      "notes": "High-torque impact driver for fastening"
     }
   ],
-  "favorites": ["bosch-gsr-18v-compact"],
-  "tags": ["essential", "beginner", "compact", "cordless"],
-  "metadata": {
-    "shared": false,
-    "sharedWith": [],
-    "public": false,
-    "archived": false,
-    "totalValue": 450,
-    "estimatedWeight": 6.5
-  }
+  "storageAssignments": [
+    {
+      "lboxxId": "lboxx-small",
+      "inlayId": "inlay-foam-small-drill",
+      "assignedTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact"],
+      "occupancyPercentage": 85,
+      "lastModified": "2026-08-06T12:30:00Z",
+      "notes": "Main compact tools storage"
+    }
+  ],
+  "syncMetadata": {
+    "lastSyncedAt": "2026-08-06T12:50:00Z",
+    "cloudBackupEnabled": true,
+    "autoSyncInterval": "daily",
+    "syncStatus": "up-to-date"
+  },
+  "lastModified": "2026-08-06T12:45:00Z"
 }

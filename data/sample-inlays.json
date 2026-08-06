@@ -1,0 +1,344 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-06T12:52:00Z",
+  "totalInlays": 5,
+  "inlays": [
+    {
+      "id": "inlay-foam-small-drill",
+      "name": "L-Boxx Foam Inlay Small - Drill Kit",
+      "type": "foam",
+      "description": "Pre-cut foam inlay for small L-Boxx configured for drill storage with precision cutouts. Custom foam padding protects tools during transport. Compatible with GSR 18V and similar compact drills.",
+      "productCode": "1600A00221",
+      "lboxxSize": "small",
+      "dimensions": {
+        "width": { "value": 267, "unit": "mm" },
+        "depth": { "value": 157, "unit": "mm" },
+        "height": { "value": 62, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.35,
+        "unit": "kg"
+      },
+      "slotGrid": {
+        "rows": 2,
+        "columns": 3,
+        "slotSpacing": { "value": 10, "unit": "mm" }
+      },
+      "toolCutouts": [
+        {
+          "toolId": "bosch-gsr-18v-compact",
+          "position": { "row": 0, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 180, "unit": "mm" },
+            "width": { "value": 110, "unit": "mm" },
+            "depth": { "value": 65, "unit": "mm" }
+          }
+        },
+        {
+          "toolId": "bosch-gdr-18v-impact",
+          "position": { "row": 0, "column": 1 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 180, "unit": "mm" },
+            "width": { "value": 110, "unit": "mm" },
+            "depth": { "value": 75, "unit": "mm" }
+          }
+        },
+        {
+          "toolId": "bosch-gli-18v-work-light",
+          "position": { "row": 1, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 240, "unit": "mm" },
+            "width": { "value": 85, "unit": "mm" },
+            "depth": { "value": 150, "unit": "mm" }
+          }
+        }
+      ],
+      "compatibleTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact", "bosch-gli-18v-work-light"],
+      "material": {
+        "composition": "Polyurethane foam with protective film",
+        "density": "40 kg/m³",
+        "durability": "high",
+        "waterResistant": true,
+        "chemicalResistant": true
+      },
+      "features": ["custom-cutouts", "protective-foam", "easy-removal", "stackable"],
+      "stackable": true,
+      "removableDividers": false,
+      "price": {
+        "value": 24.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "1 year",
+        "coverage": "Manufacturing defects"
+      },
+      "image": "https://example.com/images/inlay-foam-small-drill.jpg",
+      "createdAt": "2024-03-15T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "inlay-foam-medium-angle-grinder",
+      "name": "L-Boxx Foam Inlay Medium - Angle Grinder",
+      "type": "foam",
+      "description": "Specialized foam inlay for medium L-Boxx designed to store GWS 18V angle grinders with accessories. Pre-cut slots for grinding wheels, discs, and safety equipment.",
+      "productCode": "1600A00222",
+      "lboxxSize": "medium",
+      "dimensions": {
+        "width": { "value": 357, "unit": "mm" },
+        "depth": { "value": 207, "unit": "mm" },
+        "height": { "value": 82, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.55,
+        "unit": "kg"
+      },
+      "slotGrid": {
+        "rows": 2,
+        "columns": 2,
+        "slotSpacing": { "value": 15, "unit": "mm" }
+      },
+      "toolCutouts": [
+        {
+          "toolId": "bosch-gws-18v-125",
+          "position": { "row": 0, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 224, "unit": "mm" },
+            "width": { "value": 142, "unit": "mm" },
+            "depth": { "value": 128, "unit": "mm" }
+          }
+        }
+      ],
+      "compatibleTools": ["bosch-gws-18v-125"],
+      "material": {
+        "composition": "Polyurethane foam with reinforced edges",
+        "density": "45 kg/m³",
+        "durability": "high",
+        "waterResistant": true,
+        "chemicalResistant": true
+      },
+      "features": ["heavy-duty-foam", "protective-padding", "impact-resistant", "stackable"],
+      "stackable": true,
+      "removableDividers": true,
+      "price": {
+        "value": 34.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "1 year",
+        "coverage": "Manufacturing defects"
+      },
+      "image": "https://example.com/images/inlay-foam-medium-grinder.jpg",
+      "createdAt": "2024-04-20T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "inlay-plastic-large-saw",
+      "name": "L-Boxx Plastic Inlay Large - Saw Organizer",
+      "type": "plastic",
+      "description": "Durable plastic inlay for large L-Boxx with modular compartments for saw storage and accessories. Multiple dividers for custom organization. Resistant to moisture and dust.",
+      "productCode": "1600A00223",
+      "lboxxSize": "large",
+      "dimensions": {
+        "width": { "value": 442, "unit": "mm" },
+        "depth": { "value": 252, "unit": "mm" },
+        "height": { "value": 102, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.72,
+        "unit": "kg"
+      },
+      "slotGrid": {
+        "rows": 3,
+        "columns": 3,
+        "slotSpacing": { "value": 12, "unit": "mm" }
+      },
+      "toolCutouts": [
+        {
+          "toolId": "bosch-gks-18v-circular-saw",
+          "position": { "row": 0, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 310, "unit": "mm" },
+            "width": { "value": 168, "unit": "mm" },
+            "depth": { "value": 156, "unit": "mm" }
+          }
+        },
+        {
+          "toolId": "bosch-gst-90e-jigsaw",
+          "position": { "row": 1, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 340, "unit": "mm" },
+            "width": { "value": 125, "unit": "mm" },
+            "depth": { "value": 190, "unit": "mm" }
+          }
+        }
+      ],
+      "compatibleTools": ["bosch-gks-18v-circular-saw", "bosch-gst-90e-jigsaw"],
+      "material": {
+        "composition": "Polypropylene plastic with TPE hinges",
+        "density": "1.2 g/cm³",
+        "durability": "high",
+        "waterResistant": true,
+        "chemicalResistant": true
+      },
+      "features": ["modular-compartments", "removable-dividers", "moisture-resistant", "stackable"],
+      "stackable": true,
+      "removableDividers": true,
+      "price": {
+        "value": 44.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "2 years",
+        "coverage": "Manufacturing defects and structural integrity"
+      },
+      "image": "https://example.com/images/inlay-plastic-large-saw.jpg",
+      "createdAt": "2024-05-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "inlay-foam-xl-sander-accessory",
+      "name": "L-Boxx Foam Inlay XL - Sander & Accessory Kit",
+      "type": "foam",
+      "description": "Large foam inlay for XL L-Boxx configured for orbital sanders and belt sanders with comprehensive accessory storage. Multiple compartments for sanding pads, discs, and belts.",
+      "productCode": "1600A00224",
+      "lboxxSize": "xl",
+      "dimensions": {
+        "width": { "value": 442, "unit": "mm" },
+        "depth": { "value": 307, "unit": "mm" },
+        "height": { "value": 112, "unit": "mm" }
+      },
+      "weight": {
+        "value": 1.2,
+        "unit": "kg"
+      },
+      "slotGrid": {
+        "rows": 3,
+        "columns": 4,
+        "slotSpacing": { "value": 15, "unit": "mm" }
+      },
+      "toolCutouts": [
+        {
+          "toolId": "bosch-gex-125-orbital-sander",
+          "position": { "row": 0, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 275, "unit": "mm" },
+            "width": { "value": 180, "unit": "mm" },
+            "depth": { "value": 98, "unit": "mm" }
+          }
+        },
+        {
+          "toolId": "bosch-pbs-75a-belt-sander",
+          "position": { "row": 1, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 550, "unit": "mm" },
+            "width": { "value": 180, "unit": "mm" },
+            "depth": { "value": 165, "unit": "mm" }
+          }
+        }
+      ],
+      "compatibleTools": ["bosch-gex-125-orbital-sander", "bosch-pbs-75a-belt-sander"],
+      "material": {
+        "composition": "High-density polyurethane foam with protective face",
+        "density": "50 kg/m³",
+        "durability": "high",
+        "waterResistant": true,
+        "chemicalResistant": true
+      },
+      "features": ["high-density-foam", "full-coverage-protection", "compartmentalized", "stackable"],
+      "stackable": true,
+      "removableDividers": true,
+      "price": {
+        "value": 59.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "1 year",
+        "coverage": "Manufacturing defects"
+      },
+      "image": "https://example.com/images/inlay-foam-xl-sander.jpg",
+      "createdAt": "2024-06-05T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "inlay-wood-small-measurement",
+      "name": "L-Boxx Wood Inlay Small - Measuring Tools",
+      "type": "wood",
+      "description": "Natural wood inlay for small L-Boxx with precision-cut compartments for measuring tools and lasers. Elegant finish with protective oil coating. Perfect for professional craftsmen.",
+      "productCode": "1600A00225",
+      "lboxxSize": "small",
+      "dimensions": {
+        "width": { "value": 267, "unit": "mm" },
+        "depth": { "value": 157, "unit": "mm" },
+        "height": { "value": 62, "unit": "mm" }
+      },
+      "weight": {
+        "value": 0.45,
+        "unit": "kg"
+      },
+      "slotGrid": {
+        "rows": 2,
+        "columns": 2,
+        "slotSpacing": { "value": 8, "unit": "mm" }
+      },
+      "toolCutouts": [
+        {
+          "toolId": "bosch-glm-100c-laser-measure",
+          "position": { "row": 0, "column": 0 },
+          "cutoutShape": "rectangular",
+          "cutoutDimensions": {
+            "length": { "value": 120, "unit": "mm" },
+            "width": { "value": 70, "unit": "mm" },
+            "depth": { "value": 40, "unit": "mm" }
+          }
+        }
+      ],
+      "compatibleTools": ["bosch-glm-100c-laser-measure"],
+      "material": {
+        "composition": "Premium plywood with hardwood veneer and oil finish",
+        "density": "0.7 g/cm³",
+        "durability": "medium",
+        "waterResistant": false,
+        "chemicalResistant": false
+      },
+      "features": ["premium-finish", "precision-cut", "natural-material", "elegant"],
+      "stackable": false,
+      "removableDividers": false,
+      "price": {
+        "value": 49.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "1 year",
+        "coverage": "Structural integrity and finish quality"
+      },
+      "image": "https://example.com/images/inlay-wood-small-measure.jpg",
+      "createdAt": "2024-07-12T10:00:00Z",
+      "updatedAt": "2026-08-06T12:00:00Z"
+    }
+  ],
+  "compatibilityMatrix": {
+    "bosch-gsr-18v-compact": ["inlay-foam-small-drill"],
+    "bosch-gdr-18v-impact": ["inlay-foam-small-drill"],
+    "bosch-gws-18v-125": ["inlay-foam-medium-angle-grinder"],
+    "bosch-gks-18v-circular-saw": ["inlay-plastic-large-saw"],
+    "bosch-gex-125-orbital-sander": ["inlay-foam-xl-sander-accessory"],
+    "bosch-gst-90e-jigsaw": ["inlay-plastic-large-saw"],
+    "bosch-pbs-75a-belt-sander": ["inlay-foam-xl-sander-accessory"],
+    "bosch-pwr-180-multi-tool": ["inlay-foam-small-drill"],
+    "bosch-glm-100c-laser-measure": ["inlay-wood-small-measurement"],
+    "bosch-gli-18v-work-light": ["inlay-foam-small-drill"]
+  }
+}

@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - 'data/**'
+      - 'schemas/**'
       - '.github/workflows/validate.yml'
   push:
     branches:
       - main
     paths:
       - 'data/**'
+      - 'schemas/**'
 
 jobs:
   validate:
@@ -32,11 +34,13 @@ jobs:
           import os
           
           files_to_check = [
-              'data/tools.json',
-              'data/lboxx.json',
-              'data/metadata.json',
+              'data/sample-tools.json',
+              'data/sample-lboxx.json',
+              'data/sample-inlays.json',
+              'data/sample-collection.json',
               'schemas/tools-schema.json',
               'schemas/lboxx-schema.json',
+              'schemas/inlays-schema.json',
               'schemas/collection-schema.json'
           ]
           
@@ -67,35 +71,31 @@ jobs:
           import sys
           from jsonschema import validate, ValidationError
           
-          # Validate tools.json against schema
-          try:
-              with open('data/tools.json', 'r') as f:
-                  tools_data = json.load(f)
-              with open('schemas/tools-schema.json', 'r') as f:
-                  tools_schema = json.load(f)
-              
-              validate(instance=tools_data, schema=tools_schema)
-              print("✓ tools.json validates against schema")
-          except ValidationError as e:
-              print(f"✗ tools.json schema validation failed: {e.message}")
-              sys.exit(1)
-          except FileNotFoundError:
-              print("⚠ tools.json or schema not found (skipping)")
+          validation_pairs = [
+              ('data/sample-tools.json', 'schemas/tools-schema.json', 'tools'),
+              ('data/sample-lboxx.json', 'schemas/lboxx-schema.json', 'L-Boxx'),
+              ('data/sample-inlays.json', 'schemas/inlays-schema.json', 'inlays'),
+              ('data/sample-collection.json', 'schemas/collection-schema.json', 'collections')
+          ]
           
-          # Validate lboxx.json against schema
-          try:
-              with open('data/lboxx.json', 'r') as f:
-                  lboxx_data = json.load(f)
-              with open('schemas/lboxx-schema.json', 'r') as f:
-                  lboxx_schema = json.load(f)
-              
-              validate(instance=lboxx_data, schema=lboxx_schema)
-              print("✓ lboxx.json validates against schema")
-          except ValidationError as e:
-              print(f"✗ lboxx.json schema validation failed: {e.message}")
+          all_valid = True
+          for data_file, schema_file, name in validation_pairs:
+              try:
+                  with open(data_file, 'r') as f:
+                      data = json.load(f)
+                  with open(schema_file, 'r') as f:
+                      schema = json.load(f)
+                  
+                  validate(instance=data, schema=schema)
+                  print(f"✓ {name} data validates against schema")
+              except ValidationError as e:
+                  print(f"✗ {name} schema validation failed: {e.message}")
+                  all_valid = False
+              except FileNotFoundError as e:
+                  print(f"⚠ {data_file} or {schema_file} not found (skipping)")
+          
+          if not all_valid:
               sys.exit(1)
-          except FileNotFoundError:
-              print("⚠ lboxx.json or schema not found (skipping)")
           EOF
       
       - name: Check file sizes
@@ -105,7 +105,7 @@ jobs:
           
           max_size = 10 * 1024 * 1024  # 10 MB
           
-          for file_path in ['data/tools.json', 'data/lboxx.json']:
+          for file_path in ['data/sample-tools.json', 'data/sample-lboxx.json', 'data/sample-inlays.json', 'data/sample-collection.json']:
               if os.path.exists(file_path):
                   size = os.path.getsize(file_path)
                   size_mb = size / (1024 * 1024)
