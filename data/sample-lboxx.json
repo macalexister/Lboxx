@@ -196,6 +196,7 @@
   "compatibilityMatrix": {
     "bosch-gsr-18v-compact": ["lboxx-mini", "lboxx-small", "lboxx-medium"],
     "bosch-gdr-18v-impact": ["lboxx-mini", "lboxx-small", "lboxx-medium", "lboxx-large"],
+    "bosch-gbl-18v-120": ["lboxx-mini", "lboxx-small", "lboxx-medium"],
     "bosch-gws-18v-125": ["lboxx-medium", "lboxx-large"],
     "bosch-gks-18v-circular-saw": ["lboxx-large"],
     "bosch-gex-125-orbital-sander": ["lboxx-large"],

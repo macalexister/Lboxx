@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-08-06T12:52:00Z",
-  "totalTools": 12,
+  "totalTools": 13,
   "categories": [
     "Power Drills",
     "Impact Drivers",
@@ -10,7 +10,8 @@
     "Orbital Sanders",
     "Jigsaws",
     "Measuring Tools",
-    "Work Lights"
+    "Work Lights",
+    "Blowers"
   ],
   "tools": [
     {
@@ -588,6 +589,53 @@
       "certifications": ["CE"],
       "createdAt": "2023-06-15T10:00:00Z",
       "updatedAt": "2026-08-06T12:00:00Z"
+    },
+    {
+      "id": "bosch-gbl-18v-120",
+      "name": "Bosch GBL 18V-120 Blower",
+      "category": "Blowers",
+      "type": "cordless",
+      "description": "Compact 18V blower for quick cleanup of chips, dust, and debris in workshop and installation environments.",
+      "productCode": "06019F5100",
+      "modelNumber": "GBL 18V-120",
+      "manufacturer": "Bosch",
+      "releaseYear": 2021,
+      "availability": "in-stock",
+      "specifications": {
+        "voltage": "18V",
+        "airSpeed": "270 km/h",
+        "airFlow": "120 m3/h",
+        "weight": "1.1 kg",
+        "runtime": "9 min/Ah"
+      },
+      "dimensions": {
+        "length": { "value": 523, "unit": "mm" },
+        "width": { "value": 205, "unit": "mm" },
+        "height": { "value": 170, "unit": "mm" }
+      },
+      "weight": {
+        "value": 1.1,
+        "unit": "kg"
+      },
+      "bestFor": ["workshop cleanup", "dust removal", "drill-hole cleaning", "jobsite prep"],
+      "fits": ["small", "medium"],
+      "accessories": ["nozzle-extension", "deep-hole-nozzle", "dust-collector-tube"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "tags": ["blower", "cordless", "18v", "compact", "cleanup"],
+      "features": ["two speed levels", "lock-on switch", "compact body", "quick nozzle change"],
+      "price": {
+        "value": 79.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "warranty": {
+        "duration": "3 years",
+        "coverage": "Defects in materials and workmanship"
+      },
+      "image": "https://example.com/images/gbl-18v-120.jpg",
+      "certifications": ["CE", "GS"],
+      "createdAt": "2021-05-10T10:00:00Z",
+      "updatedAt": "2026-08-06T12:52:00Z"
     }
   ]
 }

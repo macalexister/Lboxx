@@ -85,7 +85,7 @@
       "type": "foam",
       "forLboxx": ["small", "medium"],
       "capacity": 3,
-      "compatibleTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact"],
+      "compatibleTools": ["bosch-gsr-18v-compact", "bosch-gdr-18v-impact", "bosch-gbl-18v-120"],
       "material": "Foam (EVA)",
       "features": ["removable-dividers", "anti-slip", "dust-resistant"],
       "productCode": "2610996226",

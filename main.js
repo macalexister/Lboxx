@@ -1,11 +1,11 @@
 /**
- * Bosch Professional Tool Finder - Main Application Loader
+ * Tool Finder - Main Application Loader
  * Module Architecture: window.APP namespace, modular design, no globals
  */
 
 window.APP = (() => {
     const init = async () => {
-        console.log('[APP] Initializing Bosch Professional Tool Finder...');
+        console.log('[APP] Initializing Tool Finder...');
         ui.init();
         console.log('[APP] ✓ UI module ready');
         await state.init();
@@ -29,15 +29,39 @@ window.APP = (() => {
     };
 
     const loadToolsData = async () => {
-        try {
-            const response = await fetch('data/sample-tools.json');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            return Array.isArray(data) ? data : data.tools || [];
-        } catch (e) {
-            console.error('[APP] Error loading tools data:', e);
-            return [];
+        const endpoints = ['data/tools.json', 'data/sample-tools.json'];
+
+        for (const endpoint of endpoints) {
+            try {
+                const response = await fetch(endpoint);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                const data = await response.json();
+                const tools = Array.isArray(data) ? data : data.tools || [];
+                if (!Array.isArray(tools) || tools.length === 0) continue;
+
+                return tools.map(normalizeTool);
+            } catch (e) {
+                console.warn(`[APP] Could not load ${endpoint}:`, e);
+            }
         }
+
+        console.error('[APP] Error loading tools data from all configured endpoints');
+        return [];
+    };
+
+    const normalizeTool = (tool) => {
+        const categories = Array.isArray(tool.categories) ? [...tool.categories] : [];
+
+        if (tool.category && !categories.includes(tool.category)) {
+            categories.unshift(tool.category);
+        }
+
+        return {
+            ...tool,
+            sku: tool.sku || tool.modelNumber || tool.productCode || '',
+            categories,
+        };
     };
 
     const setupEventHandlers = () => {

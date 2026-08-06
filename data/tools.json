@@ -1,11 +1,12 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-08-06T12:00:00Z",
-  "totalTools": 3,
+  "totalTools": 4,
   "categories": [
     "Power Drills",
     "Impact Drivers",
-    "Angle Grinders"
+    "Angle Grinders",
+    "Blowers"
   ],
   "tools": [
     {
@@ -73,6 +74,27 @@
       "releaseYear": 2026,
       "tags": ["professional", "cordless", "18v", "high-power"],
       "notes": "Requires solid hand grip. Anti-vibration technology reduces fatigue."
+    },
+    {
+      "id": "bosch-gbl-18v-120",
+      "name": "Bosch GBL 18V-120 Blower",
+      "category": "Blowers",
+      "type": "cordless",
+      "description": "Compact 18V blower for workshop cleanup and dust removal in tight spaces.",
+      "specifications": {
+        "voltage": "18V",
+        "airSpeed": "270 km/h",
+        "airFlow": "120 m3/h",
+        "weight": "1.1 kg"
+      },
+      "bestFor": ["workshop cleanup", "dust removal", "jobsite prep"],
+      "fits": ["small", "medium"],
+      "accessories": ["nozzle-extension", "deep-hole-nozzle"],
+      "batteryCompatible": ["CoolPack", "ProCORE"],
+      "productCode": "06019F5100",
+      "releaseYear": 2021,
+      "tags": ["blower", "cordless", "18v", "compact"],
+      "notes": "Practical for quick cleanup after drilling and cutting work."
     }
   ]
 }
