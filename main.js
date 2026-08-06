@@ -85,7 +85,7 @@ window.APP = (() => {
 
     const enrichToolsWithLboxx = (tools, lboxxData) => {
         if (!lboxxData || !Array.isArray(lboxxData.lboxxVariants)) {
-            return tools.map(tool => ({ ...tool, recommendedLboxx: [] }));
+            return tools.map(tool => ({ ...tool, recommendedLboxx: [], recommendedInlays: [], bestCombo: null }));
         }
 
         const variants = lboxxData.lboxxVariants;
@@ -94,34 +94,72 @@ window.APP = (() => {
 
         return tools.map(tool => {
             const fits = Array.isArray(tool.fits) ? tool.fits : [];
-            const sizeMatches = fits.map(size => bySize.get(size)).filter(Boolean);
-            const inlayMatches = inlays.filter(inlay =>
+            const directInlayMatches = inlays.filter(inlay =>
                 Array.isArray(inlay.compatibleTools) && inlay.compatibleTools.includes(tool.id)
             );
-            const inlayLboxxMatches = inlayMatches
+
+            const sizeMatches = fits.map(size => bySize.get(size)).filter(Boolean);
+            const inlayLboxxMatches = directInlayMatches
                 .flatMap(inlay => (Array.isArray(inlay.forLboxx) ? inlay.forLboxx : []))
                 .map(size => bySize.get(size))
                 .filter(Boolean);
 
-            const uniqueRecommendations = [];
-            const seen = new Set();
-            [...sizeMatches, ...inlayLboxxMatches].forEach(variant => {
-                if (!seen.has(variant.id)) {
-                    seen.add(variant.id);
-                    uniqueRecommendations.push({
-                        id: variant.id,
-                        name: variant.name,
-                        size: variant.size,
-                        productCode: variant.productCode || '',
-                    });
-                }
-            });
+            const recommendedLboxx = dedupeById([...inlayLboxxMatches, ...sizeMatches]).map(variant => ({
+                id: variant.id,
+                name: variant.name,
+                size: variant.size,
+                productCode: variant.productCode || '',
+            }));
+
+            const recommendedInlays = dedupeById(directInlayMatches).map(inlay => ({
+                id: inlay.id,
+                name: inlay.name,
+                type: inlay.type || '',
+                productCode: inlay.productCode || '',
+                forLboxx: Array.isArray(inlay.forLboxx) ? inlay.forLboxx : [],
+            }));
+
+            const bestCombo = pickBestCombo(recommendedLboxx, recommendedInlays, fits);
 
             return {
                 ...tool,
-                recommendedLboxx: uniqueRecommendations.slice(0, 3),
+                recommendedLboxx: recommendedLboxx.slice(0, 3),
+                recommendedInlays: recommendedInlays.slice(0, 3),
+                bestCombo,
             };
         });
+    };
+
+    const dedupeById = (items) => {
+        const uniqueItems = [];
+        const seen = new Set();
+        items.forEach(item => {
+            if (!item || !item.id || seen.has(item.id)) return;
+            seen.add(item.id);
+            uniqueItems.push(item);
+        });
+        return uniqueItems;
+    };
+
+    const pickBestCombo = (lboxxList, inlayList, fits) => {
+        if (!Array.isArray(lboxxList) || !Array.isArray(inlayList) || lboxxList.length === 0 || inlayList.length === 0) {
+            return null;
+        }
+
+        let best = null;
+        let bestScore = -1;
+        lboxxList.forEach(lboxx => {
+            inlayList.forEach(inlay => {
+                const supportsLboxx = Array.isArray(inlay.forLboxx) && inlay.forLboxx.includes(lboxx.size);
+                if (!supportsLboxx) return;
+                const score = (fits.includes(lboxx.size) ? 2 : 0) + (inlay.type === 'foam' ? 1 : 0);
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = { lboxx, inlay };
+                }
+            });
+        });
+        return best;
     };
 
     const setupEventHandlers = () => {

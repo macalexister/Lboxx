@@ -336,6 +336,29 @@ input[type="checkbox"] {
     color: var(--color-secondary-gray);
 }
 
+.tool-card-combo {
+    margin-top: var(--spacing-m);
+    padding: var(--spacing-s) var(--spacing-m);
+    background: rgba(0, 102, 204, 0.09);
+    border-left: 3px solid var(--color-primary-blue);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body-sm);
+}
+
+.tool-card-combo--empty {
+    color: var(--color-secondary-gray);
+}
+
+.tool-card-inlay {
+    margin-top: var(--spacing-s);
+    font-size: var(--font-size-body-sm);
+    color: var(--color-dark-gray);
+}
+
+.tool-card-inlay--empty {
+    color: var(--color-secondary-gray);
+}
+
 .tool-card-save {
     margin-top: var(--spacing-m);
     border: none;
