@@ -48,11 +48,11 @@
     },
     "tools": {
       "type": "array",
-      "description": "Array of tool objects (minimum 50 fields per tool when complete)",
+      "description": "Array of tool objects (50+ fields per tool when complete)",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "category", "type", "productCode", "description"],
+        "required": ["id", "name", "category", "type", "productCode", "description", "weight", "dimensions"],
         "additionalProperties": false,
         "properties": {
           "id": {

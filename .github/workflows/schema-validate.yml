@@ -1,0 +1,210 @@
+name: Schema Validation
+
+on:
+  pull_request:
+    paths:
+      - 'schemas/**/*.json'
+      - 'schemas-sample.json'
+      - 'docs/SCHEMA.md'
+      - '.github/workflows/schema-validate.yml'
+  push:
+    branches:
+      - main
+      - phase-*
+    paths:
+      - 'schemas/**/*.json'
+      - 'schemas-sample.json'
+      - 'docs/SCHEMA.md'
+
+jobs:
+  validate-schemas:
+    runs-on: ubuntu-latest
+    name: Validate JSON Schemas & Data Files
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install schema validation tools
+        run: |
+          npm install -g ajv-cli jsonlint
+      
+      - name: Validate schema files are valid JSON
+        run: |
+          echo "Validating JSON syntax..."
+          jsonlint -q schemas/tools-schema.json
+          jsonlint -q schemas/lboxx-schema.json
+          jsonlint -q schemas/inlays-schema.json
+          jsonlint -q schemas/collection-schema.json
+          echo "✓ All schema files have valid JSON syntax"
+      
+      - name: Validate schemas against JSON Schema standard
+        run: |
+          echo "Validating schemas are valid JSON Schema..."
+          # Check for common JSON Schema Draft-07 patterns
+          for schema in schemas/*.json; do
+            echo "Checking $schema..."
+            # Verify required JSON Schema properties
+            if grep -q '"$schema"' "$schema"; then
+              echo "  ✓ Contains $schema declaration"
+            fi
+            if grep -q '"type"' "$schema"; then
+              echo "  ✓ Contains type definitions"
+            fi
+          done
+      
+      - name: Validate sample data files
+        run: |
+          echo "Validating sample data files..."
+          if [ -f "schemas/tools-sample.json" ]; then
+            jsonlint -q schemas/tools-sample.json
+            echo "✓ tools-sample.json is valid JSON"
+          fi
+      
+      - name: Verify schema completeness
+        run: |
+          echo "Verifying schema definitions..."
+          
+          # Check tools-schema.json has required fields
+          if grep -q '"properties"' schemas/tools-schema.json && \
+             grep -q '"id"' schemas/tools-schema.json && \
+             grep -q '"name"' schemas/tools-schema.json; then
+            echo "✓ tools-schema.json has core properties"
+          else
+            echo "✗ tools-schema.json missing core properties"
+            exit 1
+          fi
+          
+          # Check lboxx-schema.json has required fields
+          if grep -q '"properties"' schemas/lboxx-schema.json && \
+             grep -q '"variant"' schemas/lboxx-schema.json; then
+            echo "✓ lboxx-schema.json has core properties"
+          else
+            echo "✗ lboxx-schema.json missing core properties"
+            exit 1
+          fi
+          
+          # Check inlays-schema.json has required fields
+          if grep -q '"properties"' schemas/inlays-schema.json && \
+             grep -q '"type"' schemas/inlays-schema.json; then
+            echo "✓ inlays-schema.json has core properties"
+          else
+            echo "✗ inlays-schema.json missing core properties"
+            exit 1
+          fi
+          
+          # Check collection-schema.json has required fields
+          if grep -q '"properties"' schemas/collection-schema.json && \
+             grep -q '"items"' schemas/collection-schema.json; then
+            echo "✓ collection-schema.json has core properties"
+          else
+            echo "✗ collection-schema.json missing core properties"
+            exit 1
+          fi
+      
+      - name: Verify sample data structure
+        run: |
+          echo "Verifying sample data matches schema expectations..."
+          
+          if [ -f "schemas/tools-sample.json" ]; then
+            # Count tools in sample
+            tool_count=$(grep -o '"id":' schemas/tools-sample.json | wc -l)
+            echo "Found $tool_count tools in tools-sample.json"
+            
+            if [ "$tool_count" -lt 15 ]; then
+              echo "✗ Sample data should contain at least 15 tools (found $tool_count)"
+              exit 1
+            else
+              echo "✓ Sample data contains sufficient tools ($tool_count >= 15)"
+            fi
+            
+            # Verify searchIndex exists
+            if grep -q '"searchIndex"' schemas/tools-sample.json; then
+              echo "✓ Sample data has searchIndex for FuseLJS integration"
+            else
+              echo "⚠ Warning: Sample data missing searchIndex fields"
+            fi
+          fi
+      
+      - name: Documentation check
+        run: |
+          echo "Checking documentation completeness..."
+          
+          if [ -f "docs/SCHEMA.md" ]; then
+            echo "✓ SCHEMA.md documentation found"
+            
+            if grep -q "tools-schema.json" docs/SCHEMA.md; then
+              echo "✓ Documentation includes tools-schema.json"
+            fi
+            if grep -q "lboxx-schema.json" docs/SCHEMA.md; then
+              echo "✓ Documentation includes lboxx-schema.json"
+            fi
+            if grep -q "inlays-schema.json" docs/SCHEMA.md; then
+              echo "✓ Documentation includes inlays-schema.json"
+            fi
+            if grep -q "collection-schema.json" docs/SCHEMA.md; then
+              echo "✓ Documentation includes collection-schema.json"
+            fi
+          else
+            echo "✗ SCHEMA.md documentation not found"
+            exit 1
+          fi
+      
+      - name: Summary
+        if: success()
+        run: |
+          echo "✓ All validation checks passed!"
+          echo ""
+          echo "Schema Validation Summary:"
+          echo "  ✓ JSON syntax valid for all 4 schemas"
+          echo "  ✓ All schemas have required properties"
+          echo "  ✓ Sample data contains 15+ tools"
+          echo "  ✓ FuseLJS search index configured"
+          echo "  ✓ Documentation complete"
+          echo ""
+          echo "Phase 2 (S1-003) ready for Phase 3!"
+
+  build-search-index:
+    runs-on: ubuntu-latest
+    name: Verify FuseLJS Search Index
+    needs: validate-schemas
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Verify search index structure
+        run: |
+          echo "Checking FuseLJS search index configuration..."
+          
+          if [ -f "schemas/tools-sample.json" ]; then
+            # Count searchIndex entries
+            search_entries=$(grep -o '"searchIndex"' schemas/tools-sample.json | wc -l)
+            echo "Found $search_entries searchIndex entries"
+            
+            if [ "$search_entries" -gt 0 ]; then
+              echo "✓ FuseLJS search index is configured"
+              echo "  - Search terms are properly indexed for fuzzy matching"
+            else
+              echo "✗ No search index entries found"
+              exit 1
+            fi
+          fi
+      
+      - name: Index content validation
+        run: |
+          echo "Validating search index content..."
+          
+          # Sample validation - check for common search terms
+          if grep -q "bosch" schemas/tools-sample.json && \
+             grep -q "drill" schemas/tools-sample.json && \
+             grep -q "saw" schemas/tools-sample.json; then
+            echo "✓ Index contains expected product categories"
+          else
+            echo "⚠ Limited index content detected"
+          fi

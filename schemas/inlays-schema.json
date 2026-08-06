@@ -1,0 +1,361 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "L-Boxx Inlay Catalog Schema",
+  "description": "Foam, plastic, and wood inlay configurations with tool cutouts and compatibility matrices",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic versioning (e.g., 1.0.0)",
+      "example": "1.0.0"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last update"
+    },
+    "totalInlays": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total count of inlay configurations"
+    },
+    "inlays": {
+      "type": "array",
+      "description": "Available inlay configurations with tool cutout mappings",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "lboxxSize", "productCode"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^inlay-[a-z0-9-]+$",
+            "description": "Unique inlay identifier",
+            "example": "inlay-foam-medium-drill"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 80,
+            "description": "Inlay product name",
+            "example": "L-Boxx Medium Foam Inlay - Drill Set"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["foam", "plastic", "wood"],
+            "description": "Inlay material type"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "Detailed description of this inlay configuration"
+          },
+          "productCode": {
+            "type": "string",
+            "pattern": "^[0-9A-Z]{8,12}$",
+            "description": "Official Bosch product code/SKU"
+          },
+          "lboxxSize": {
+            "type": "string",
+            "enum": ["mini", "small", "medium", "large", "xl"],
+            "description": "Compatible L-Boxx size"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Inlay dimensions",
+            "required": ["width", "depth", "height"],
+            "additionalProperties": false,
+            "properties": {
+              "width": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 1
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
+                }
+              },
+              "depth": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 1
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
+                }
+              },
+              "height": {
+                "type": "object",
+                "required": ["value", "unit"],
+                "additionalProperties": false,
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 1
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm", "in"],
+                    "default": "mm"
+                  }
+                }
+              }
+            }
+          },
+          "weight": {
+            "type": "object",
+            "description": "Inlay weight",
+            "required": ["value", "unit"],
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0.1,
+                "maximum": 10
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["kg", "lbs"],
+                "default": "kg"
+              }
+            }
+          },
+          "slotGrid": {
+            "type": "object",
+            "description": "Slot grid configuration for tool placement",
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Number of rows in slot grid"
+              },
+              "columns": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Number of columns in slot grid"
+              },
+              "slotSpacing": {
+                "type": "object",
+                "description": "Spacing between slots",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": ["mm", "cm"]
+                  }
+                }
+              }
+            }
+          },
+          "toolCutouts": {
+            "type": "array",
+            "description": "Mapping of tool IDs to cutout positions",
+            "items": {
+              "type": "object",
+              "required": ["toolId", "position"],
+              "additionalProperties": false,
+              "properties": {
+                "toolId": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$",
+                  "description": "Reference to tool ID in tools catalog"
+                },
+                "position": {
+                  "type": "object",
+                  "description": "Slot position (row, column)",
+                  "required": ["row", "column"],
+                  "properties": {
+                    "row": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "column": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                },
+                "cutoutShape": {
+                  "type": "string",
+                  "enum": ["rectangular", "circular", "custom"],
+                  "default": "rectangular",
+                  "description": "Shape of the tool cutout"
+                },
+                "cutoutDimensions": {
+                  "type": "object",
+                  "description": "Cutout dimensions",
+                  "properties": {
+                    "length": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "number" },
+                        "unit": { "type": "string", "enum": ["mm", "cm"] }
+                      }
+                    },
+                    "width": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "number" },
+                        "unit": { "type": "string", "enum": ["mm", "cm"] }
+                      }
+                    },
+                    "depth": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "number" },
+                        "unit": { "type": "string", "enum": ["mm", "cm"] }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "compatibleTools": {
+            "type": "array",
+            "description": "List of compatible tool IDs that fit this inlay",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            }
+          },
+          "material": {
+            "type": "object",
+            "description": "Material properties",
+            "additionalProperties": false,
+            "properties": {
+              "composition": {
+                "type": "string",
+                "description": "Material composition details"
+              },
+              "density": {
+                "type": "string",
+                "description": "Material density (for foam: kg/m³)"
+              },
+              "durability": {
+                "type": "string",
+                "enum": ["low", "medium", "high"],
+                "description": "Expected durability rating"
+              },
+              "waterResistant": {
+                "type": "boolean",
+                "description": "Is the inlay water-resistant?"
+              },
+              "chemicalResistant": {
+                "type": "boolean",
+                "description": "Is the inlay resistant to chemicals?"
+              }
+            }
+          },
+          "features": {
+            "type": "array",
+            "description": "Key features and properties",
+            "items": {
+              "type": "string"
+            },
+            "example": ["custom-cutouts", "stackable", "removable-dividers", "foam-padding"]
+          },
+          "stackable": {
+            "type": "boolean",
+            "description": "Can multiple inlays be stacked in same L-Boxx?",
+            "default": true
+          },
+          "removableDividers": {
+            "type": "boolean",
+            "description": "Does inlay have removable dividers?",
+            "default": false
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "Product image URL"
+          },
+          "images": {
+            "type": "array",
+            "description": "Additional product images",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "price": {
+            "type": "object",
+            "description": "Pricing information",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "enum": ["EUR", "USD", "GBP"],
+                "default": "EUR"
+              },
+              "includesTax": {
+                "type": "boolean",
+                "default": true
+              }
+            }
+          },
+          "warranty": {
+            "type": "object",
+            "description": "Warranty information",
+            "additionalProperties": false,
+            "properties": {
+              "duration": {
+                "type": "string",
+                "example": "1 year"
+              },
+              "coverage": {
+                "type": "string"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when added to catalog"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp of last modification"
+          }
+        }
+      }
+    },
+    "compatibilityMatrix": {
+      "type": "object",
+      "description": "Global compatibility matrix: tool ID -> compatible inlay IDs",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^inlay-[a-z0-9-]+$"
+        }
+      }
+    }
+  },
+  "required": ["version", "lastUpdated", "inlays"],
+  "additionalProperties": false
+}

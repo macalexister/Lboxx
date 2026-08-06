@@ -1,19 +1,21 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "User Collection",
-  "description": "User-created collection of tools and L-Boxx organization",
+  "title": "User Collection Schema",
+  "description": "User-created collection of tools and L-Boxx organization with storage assignments",
   "type": "object",
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^collection-[a-z0-9-]+$",
-      "description": "Unique collection identifier"
+      "minLength": 15,
+      "maxLength": 50,
+      "description": "Unique collection identifier (globally unique)"
     },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 100,
-      "description": "Collection name"
+      "description": "User-defined collection name"
     },
     "description": {
       "type": "string",
@@ -30,42 +32,96 @@
       "format": "date-time",
       "description": "ISO 8601 last update timestamp"
     },
+    "owner": {
+      "type": "object",
+      "description": "Collection owner information",
+      "additionalProperties": false,
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user identifier"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Owner email address"
+        },
+        "name": {
+          "type": "string",
+          "description": "Owner display name"
+        }
+      }
+    },
     "category": {
       "type": "string",
-      "description": "Collection category (e.g., 'electrician', 'plumber', 'carpenter')"
+      "enum": ["electrician", "plumber", "carpenter", "metalworker", "general", "hobbyist", "other"],
+      "description": "Collection category/profession"
+    },
+    "skillLevel": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced", "professional"],
+      "default": "intermediate",
+      "description": "User's skill level with these tools"
+    },
+    "workEnvironment": {
+      "type": "string",
+      "enum": ["workshop", "site", "mobile", "portable", "mixed"],
+      "description": "Where these tools are primarily used"
     },
     "lboxx": {
       "type": "object",
-      "description": "Associated L-Boxx configuration",
+      "description": "Associated L-Boxx configuration for this collection",
+      "additionalProperties": false,
       "properties": {
         "id": {
           "type": "string",
-          "description": "L-Boxx variant ID"
+          "pattern": "^lboxx-[a-z0-9-]+$",
+          "description": "L-Boxx variant ID (reference to L-Boxx catalog)"
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "Number of this L-Boxx variant in collection"
         },
         "inlays": {
           "type": "array",
-          "description": "Inlays used in this configuration",
+          "description": "Inlay IDs used in this L-Boxx (references to inlay catalog)",
           "items": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^inlay-[a-z0-9-]+$"
           }
+        },
+        "customizationNotes": {
+          "type": "string",
+          "description": "Any custom modifications or notes about this L-Boxx"
         }
       }
     },
     "items": {
       "type": "array",
-      "description": "Tools and items in this collection",
+      "description": "Tools and items in this collection with storage assignments",
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": ["id", "toolId"],
+        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
             "pattern": "^item-[a-z0-9-]+$",
+            "minLength": 8,
+            "maxLength": 30,
             "description": "Unique item identifier within collection"
           },
           "toolId": {
             "type": "string",
+            "pattern": "^[a-z0-9-]+$",
             "description": "Reference to tool catalog ID"
+          },
+          "toolName": {
+            "type": "string",
+            "description": "Cached copy of tool name for offline access (reference data)"
           },
           "quantity": {
             "type": "integer",
@@ -73,26 +129,145 @@
             "default": 1,
             "description": "Number of this tool in collection"
           },
-          "location": {
+          "serialNumber": {
             "type": "string",
-            "description": "Where tool is stored (e.g., 'Drawer 2, Slot 3')"
+            "maxLength": 50,
+            "description": "Product serial number if available"
+          },
+          "purchaseDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date this tool was purchased"
+          },
+          "purchasePrice": {
+            "type": "object",
+            "description": "Price paid for this tool",
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "number", "minimum": 0 },
+              "currency": { "type": "string", "enum": ["EUR", "USD", "GBP"], "default": "EUR" }
+            }
+          },
+          "warranty": {
+            "type": "object",
+            "description": "Warranty information for this specific tool",
+            "additionalProperties": false,
+            "properties": {
+              "expireDate": { "type": "string", "format": "date" },
+              "registered": { "type": "boolean", "default": false },
+              "notes": { "type": "string" }
+            }
+          },
+          "location": {
+            "type": "object",
+            "description": "Physical storage location",
+            "additionalProperties": false,
+            "properties": {
+              "storage": {
+                "type": "string",
+                "enum": ["lboxx", "drawer", "shelf", "wall-mount", "case", "other"],
+                "description": "Storage type"
+              },
+              "lboxxIndex": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Which L-Boxx (if using multiple)"
+              },
+              "compartment": {
+                "type": "string",
+                "description": "Specific compartment/slot location (e.g., 'Drawer 1, Slot 3')"
+              },
+              "inlayId": {
+                "type": "string",
+                "description": "Which inlay contains this tool"
+              },
+              "notes": {
+                "type": "string",
+                "maxLength": 100,
+                "description": "Location notes"
+              }
+            }
           },
           "condition": {
             "type": "string",
-            "enum": ["perfect", "good", "fair", "needs-repair"],
+            "enum": ["perfect", "good", "fair", "needs-repair", "broken"],
             "default": "good",
             "description": "Tool condition status"
           },
+          "lastUsed": {
+            "type": "string",
+            "format": "date",
+            "description": "Date this tool was last used"
+          },
+          "maintenanceLog": {
+            "type": "array",
+            "description": "Maintenance and repair history",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "date": { "type": "string", "format": "date" },
+                "type": { "type": "string", "enum": ["service", "repair", "cleaning", "calibration"] },
+                "description": { "type": "string" },
+                "cost": { "type": "number" }
+              }
+            }
+          },
           "notes": {
             "type": "string",
-            "maxLength": 300,
-            "description": "Personal notes about this tool"
+            "maxLength": 500,
+            "description": "Personal notes about this tool (tips, experiences, etc.)"
+          },
+          "images": {
+            "type": "array",
+            "description": "User-uploaded images of this specific tool",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
           },
           "customAttributes": {
             "type": "object",
-            "description": "User-defined attributes",
+            "description": "User-defined custom attributes (flexible key-value pairs)",
             "additionalProperties": {
-              "type": ["string", "number", "boolean"]
+              "anyOf": [
+                { "type": "string" },
+                { "type": "number" },
+                { "type": "boolean" },
+                { "type": "array" }
+              ]
+            },
+            "example": {
+              "batteryLevel": "4.5Ah",
+              "lastCalibration": "2026-07-15",
+              "customColoring": "blue stripe"
+            }
+          },
+          "borrowed": {
+            "type": "boolean",
+            "default": false,
+            "description": "Is this tool borrowed from someone?"
+          },
+          "borrowedFrom": {
+            "type": "string",
+            "description": "Who borrowed this tool (if applicable)"
+          },
+          "borrowDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date borrowed (if applicable)"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Due date for return (if applicable)"
+          },
+          "tags": {
+            "type": "array",
+            "description": "User-defined tags for this specific item",
+            "items": {
+              "type": "string",
+              "maxLength": 30
             }
           }
         }
@@ -100,60 +275,141 @@
     },
     "favorites": {
       "type": "array",
-      "description": "Favorited tool IDs",
+      "description": "Favorited tool IDs for quick access",
       "items": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
       }
     },
     "tags": {
       "type": "array",
-      "description": "User-defined tags for organization",
+      "description": "Collection-level tags for organization and filtering",
       "items": {
         "type": "string",
+        "minLength": 2,
         "maxLength": 30
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Computed statistics about this collection",
+      "additionalProperties": false,
+      "properties": {
+        "totalTools": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of unique tool types"
+        },
+        "totalItems": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total items including duplicates"
+        },
+        "estimatedWeight": {
+          "type": "object",
+          "description": "Estimated total weight of all tools",
+          "properties": {
+            "value": { "type": "number", "minimum": 0 },
+            "unit": { "type": "string", "enum": ["kg", "lbs"], "default": "kg" }
+          }
+        },
+        "totalValue": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Estimated total value in currency"
+        },
+        "coverage": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Tools coverage relative to profession"
+        }
       }
     },
     "metadata": {
       "type": "object",
-      "description": "Additional metadata",
+      "description": "Collection-level metadata and sharing configuration",
+      "additionalProperties": false,
       "properties": {
         "shared": {
           "type": "boolean",
-          "description": "Is this collection shared?"
+          "default": false,
+          "description": "Is this collection shared with others?"
         },
         "sharedWith": {
           "type": "array",
-          "description": "Email addresses this is shared with",
+          "description": "Email addresses or user IDs this is shared with",
           "items": {
-            "type": "string",
-            "format": "email"
+            "type": "string"
+          }
+        },
+        "sharePermissions": {
+          "type": "object",
+          "description": "Permission levels for shared access",
+          "additionalProperties": false,
+          "properties": {
+            "canView": { "type": "boolean", "default": true },
+            "canEdit": { "type": "boolean", "default": false },
+            "canDelete": { "type": "boolean", "default": false },
+            "canExport": { "type": "boolean", "default": false }
           }
         },
         "public": {
           "type": "boolean",
+          "default": false,
           "description": "Is this collection publicly viewable?"
+        },
+        "publicLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "Public share link if public=true"
         },
         "archived": {
           "type": "boolean",
           "default": false,
           "description": "Is collection archived?"
         },
-        "totalValue": {
-          "type": "number",
-          "description": "Estimated total value in currency"
+        "favorite": {
+          "type": "boolean",
+          "default": false,
+          "description": "Mark this collection as a favorite"
         },
-        "estimatedWeight": {
-          "type": "number",
-          "description": "Estimated total weight in kg"
+        "viewCount": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Number of times this collection has been viewed"
+        },
+        "lastBackup": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of last backup"
         }
       }
     },
-    "exportFormat": {
-      "type": "string",
-      "enum": ["json", "csv", "pdf"],
-      "description": "Format used for export (informational)"
+    "exports": {
+      "type": "object",
+      "description": "Export history and configuration",
+      "additionalProperties": false,
+      "properties": {
+        "lastExport": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last export timestamp"
+        },
+        "lastExportFormat": {
+          "type": "string",
+          "enum": ["json", "csv", "pdf"],
+          "description": "Last used export format"
+        },
+        "defaultFormat": {
+          "type": "string",
+          "enum": ["json", "csv", "pdf"],
+          "default": "json",
+          "description": "Default export format preference"
+        }
+      }
     }
   },
-  "required": ["id", "name", "createdAt", "items"],
+  "required": ["id", "name", "createdAt", "updatedAt", "items"],
   "additionalProperties": false
 }

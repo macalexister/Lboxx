@@ -1,0 +1,747 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bosch Professional Tools Sample Data",
+  "description": "Sample dataset with 15+ realistic Bosch Professional tools for testing and validation",
+  "tools": [
+    {
+      "id": "bosch-gst-90-be",
+      "name": "Bosch GST 90 BE Jigsaw",
+      "manufacturer": "Bosch Professional",
+      "category": "jigsaws",
+      "productCode": "06012A7001",
+      "description": "Compact jigsaw with high-speed cutting for wood, plastic, and metal",
+      "image": "https://bosch-professional.com/gst-90-be.jpg",
+      "releaseDate": "2019-03-15",
+      "specifications": {
+        "power": {
+          "value": 650,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "frequency": {
+          "value": 50,
+          "unit": "Hz"
+        },
+        "strokeLength": {
+          "value": 90,
+          "unit": "mm"
+        },
+        "strokeCount": {
+          "value": 500,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 3.6,
+          "unit": "kg"
+        },
+        "dimensions": {
+          "length": { "value": 360, "unit": "mm" },
+          "width": { "value": 125, "unit": "mm" },
+          "height": { "value": 210, "unit": "mm" }
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["Variable speed control", "LED work light", "Dust extraction port", "Tool-free blade change"],
+        "compatibility": ["standard jigsaw blades T-shank"]
+      },
+      "pricing": {
+        "value": 199.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GST 90 BE", "jigsaw", "Bosch", "cutting"]
+    },
+    {
+      "id": "bosch-gks-190",
+      "name": "Bosch GKS 190 Circular Saw",
+      "manufacturer": "Bosch Professional",
+      "category": "circular_saws",
+      "productCode": "06016A0200",
+      "description": "High-performance circular saw for professional woodworking",
+      "image": "https://bosch-professional.com/gks-190.jpg",
+      "releaseDate": "2020-06-20",
+      "specifications": {
+        "power": {
+          "value": 1400,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "frequency": {
+          "value": 50,
+          "unit": "Hz"
+        },
+        "bladeSize": {
+          "value": 190,
+          "unit": "mm"
+        },
+        "maxCuttingDepth": {
+          "value": 65,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 5800,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 4.2,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["Dust extraction system", "Laser guide", "Electric brake", "Ergonomic handle"]
+      },
+      "pricing": {
+        "value": 279.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GKS 190", "circular saw", "Bosch", "woodworking"]
+    },
+    {
+      "id": "bosch-pst-800-pel",
+      "name": "Bosch PST 800 PEL Orbital Sander",
+      "manufacturer": "Bosch Professional",
+      "category": "sanders",
+      "productCode": "06033A5001",
+      "description": "Compact orbital sander with variable speed and dust extraction",
+      "image": "https://bosch-professional.com/pst-800-pel.jpg",
+      "releaseDate": "2018-09-10",
+      "specifications": {
+        "power": {
+          "value": 350,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "plateSize": {
+          "value": 93,
+          "unit": "mm"
+        },
+        "maxOrbitDiameter": {
+          "value": 1.6,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 6000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 1.4,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Variable speed", "Dust extraction", "Efficient heat dissipation", "Low vibration"]
+      },
+      "pricing": {
+        "value": 149.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["PST 800 PEL", "sander", "Bosch", "finishing"]
+    },
+    {
+      "id": "bosch-gsr-18v-ec",
+      "name": "Bosch GSR 18V-EC Drill-Driver",
+      "manufacturer": "Bosch Professional",
+      "category": "drill_drivers",
+      "productCode": "06019E6100",
+      "description": "18V cordless drill-driver with EC brushless motor",
+      "image": "https://bosch-professional.com/gsr-18v-ec.jpg",
+      "releaseDate": "2021-02-14",
+      "specifications": {
+        "voltage": {
+          "value": 18,
+          "unit": "V"
+        },
+        "batteryType": "Li-Ion",
+        "batteryCapacity": {
+          "value": 2.0,
+          "unit": "Ah"
+        },
+        "weight": {
+          "value": 1.5,
+          "unit": "kg"
+        },
+        "maxTorque": {
+          "value": 48,
+          "unit": "Nm"
+        },
+        "speed": {
+          "value": 1500,
+          "unit": "1/min"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Brushless motor", "Variable speed", "LED work light", "Single sleeve chuck 1.3-10 mm"]
+      },
+      "pricing": {
+        "value": 89.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GSR 18V-EC", "cordless drill", "Bosch", "brushless"]
+    },
+    {
+      "id": "bosch-gws-18v-125",
+      "name": "Bosch GWS 18V-125 Angle Grinder",
+      "manufacturer": "Bosch Professional",
+      "category": "angle_grinders",
+      "productCode": "06019F81E3",
+      "description": "18V cordless angle grinder with compact design",
+      "image": "https://bosch-professional.com/gws-18v-125.jpg",
+      "releaseDate": "2020-11-08",
+      "specifications": {
+        "voltage": {
+          "value": 18,
+          "unit": "V"
+        },
+        "batteryType": "Li-Ion",
+        "batteryCapacity": {
+          "value": 2.0,
+          "unit": "Ah"
+        },
+        "discSize": {
+          "value": 125,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 10000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 2.2,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Compact design", "Soft grip", "Electronic power control", "Dust extraction connection"]
+      },
+      "pricing": {
+        "value": 159.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GWS 18V-125", "angle grinder", "Bosch", "cordless"]
+    },
+    {
+      "id": "bosch-gks-66-pc",
+      "name": "Bosch GKS 66 PC Circular Saw",
+      "manufacturer": "Bosch Professional",
+      "category": "circular_saws",
+      "productCode": "06016A6200",
+      "description": "Compact circular saw with chip extraction system",
+      "image": "https://bosch-professional.com/gks-66-pc.jpg",
+      "releaseDate": "2019-05-22",
+      "specifications": {
+        "power": {
+          "value": 1200,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "bladeSize": {
+          "value": 165,
+          "unit": "mm"
+        },
+        "maxCuttingDepth": {
+          "value": 45,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 5000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 3.1,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["Dust extraction", "Micro-adjustment bevel angle", "Laser guide option", "Soft grip"]
+      },
+      "pricing": {
+        "value": 219.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GKS 66 PC", "circular saw", "compact", "Bosch"]
+    },
+    {
+      "id": "bosch-gdx-18v-ec",
+      "name": "Bosch GDX 18V-EC Impact Driver",
+      "manufacturer": "Bosch Professional",
+      "category": "impact_drivers",
+      "productCode": "06019B8300",
+      "description": "Compact impact driver with EC brushless motor for fastening",
+      "image": "https://bosch-professional.com/gdx-18v-ec.jpg",
+      "releaseDate": "2021-01-18",
+      "specifications": {
+        "voltage": {
+          "value": 18,
+          "unit": "V"
+        },
+        "batteryType": "Li-Ion",
+        "batteryCapacity": {
+          "value": 2.0,
+          "unit": "Ah"
+        },
+        "weight": {
+          "value": 1.25,
+          "unit": "kg"
+        },
+        "maxTorque": {
+          "value": 140,
+          "unit": "Nm"
+        },
+        "speed": {
+          "value": 2800,
+          "unit": "1/min"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Brushless motor", "Electronic power control", "2-speed transmission", "LED work light"]
+      },
+      "pricing": {
+        "value": 109.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GDX 18V-EC", "impact driver", "Bosch", "fastening"]
+    },
+    {
+      "id": "bosch-gsc-10-8v-li",
+      "name": "Bosch GSC 10.8V-LI Reciprocating Saw",
+      "manufacturer": "Bosch Professional",
+      "category": "reciprocating_saws",
+      "productCode": "06033B1000",
+      "description": "Compact 10.8V cordless reciprocating saw for cutting",
+      "image": "https://bosch-professional.com/gsc-10-8v-li.jpg",
+      "releaseDate": "2019-07-30",
+      "specifications": {
+        "voltage": {
+          "value": 10.8,
+          "unit": "V"
+        },
+        "batteryType": "Li-Ion",
+        "batteryCapacity": {
+          "value": 1.3,
+          "unit": "Ah"
+        },
+        "weight": {
+          "value": 1.0,
+          "unit": "kg"
+        },
+        "strokeLength": {
+          "value": 19,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 2700,
+          "unit": "1/min"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Tool-free blade change", "Power control", "Compact design", "Minimal vibration"]
+      },
+      "pricing": {
+        "value": 79.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GSC 10.8V-LI", "reciprocating saw", "Bosch", "compact"]
+    },
+    {
+      "id": "bosch-gco-2000",
+      "name": "Bosch GCO 2000 Cut-off Saw",
+      "manufacturer": "Bosch Professional",
+      "category": "cut_off_saws",
+      "productCode": "06018A2400",
+      "description": "Professional cut-off saw for metal cutting",
+      "image": "https://bosch-professional.com/gco-2000.jpg",
+      "releaseDate": "2020-03-12",
+      "specifications": {
+        "power": {
+          "value": 2000,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "discSize": {
+          "value": 355,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 3000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 27.0,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["Adjustable cutting angle", "Integrated coolant system", "Chip extraction", "Safety features"]
+      },
+      "pricing": {
+        "value": 599.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GCO 2000", "cut-off saw", "metal cutting", "Bosch"]
+    },
+    {
+      "id": "bosch-gll-2-50",
+      "name": "Bosch GLL 2-50 Laser Level",
+      "manufacturer": "Bosch Professional",
+      "category": "laser_levels",
+      "productCode": "06159940PU",
+      "description": "Compact laser level for professional leveling and alignment",
+      "image": "https://bosch-professional.com/gll-2-50.jpg",
+      "releaseDate": "2018-11-05",
+      "specifications": {
+        "power": {
+          "value": 2,
+          "unit": "mW"
+        },
+        "laserType": "Cross line laser",
+        "range": {
+          "value": 50,
+          "unit": "m"
+        },
+        "accuracy": {
+          "value": 3,
+          "unit": "mm/m"
+        },
+        "weight": {
+          "value": 0.16,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Self-leveling", "Cross line laser", "Compact design", "Magnetic base option"]
+      },
+      "pricing": {
+        "value": 159.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GLL 2-50", "laser level", "Bosch", "alignment"]
+    },
+    {
+      "id": "bosch-pst-10-8-li",
+      "name": "Bosch PST 10.8 LI Jigsaw",
+      "manufacturer": "Bosch Professional",
+      "category": "jigsaws",
+      "productCode": "06033A1020",
+      "description": "Ultra-compact cordless jigsaw for precise cutting",
+      "image": "https://bosch-professional.com/pst-10-8-li.jpg",
+      "releaseDate": "2019-04-16",
+      "specifications": {
+        "voltage": {
+          "value": 10.8,
+          "unit": "V"
+        },
+        "batteryType": "Li-Ion",
+        "batteryCapacity": {
+          "value": 1.3,
+          "unit": "Ah"
+        },
+        "weight": {
+          "value": 0.9,
+          "unit": "kg"
+        },
+        "strokeLength": {
+          "value": 65,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 3000,
+          "unit": "1/min"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Cordless", "Compact design", "Tool-free blade change", "LED work light"]
+      },
+      "pricing": {
+        "value": 69.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["PST 10.8 LI", "jigsaw", "cordless", "Bosch"]
+    },
+    {
+      "id": "bosch-gex-125-1ae",
+      "name": "Bosch GEX 125-1AE Random Orbital Sander",
+      "manufacturer": "Bosch Professional",
+      "category": "sanders",
+      "productCode": "06012A4700",
+      "description": "Heavy-duty random orbital sander for efficient surface finishing",
+      "image": "https://bosch-professional.com/gex-125-1ae.jpg",
+      "releaseDate": "2017-08-22",
+      "specifications": {
+        "power": {
+          "value": 350,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "plateSize": {
+          "value": 125,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 12000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 2.0,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["Variable speed", "Dust extraction", "Soft grip", "Tool-free pad change"]
+      },
+      "pricing": {
+        "value": 189.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GEX 125-1AE", "orbital sander", "Bosch", "finishing"]
+    },
+    {
+      "id": "bosch-gmd-110",
+      "name": "Bosch GMD 110 Multi-Tool",
+      "manufacturer": "Bosch Professional",
+      "category": "multi_tools",
+      "productCode": "06019B5001",
+      "description": "Versatile oscillating multi-tool for versatile applications",
+      "image": "https://bosch-professional.com/gmd-110.jpg",
+      "releaseDate": "2020-09-14",
+      "specifications": {
+        "power": {
+          "value": 300,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "speed": {
+          "value": 20000,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 1.3,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Variable speed control", "Tool-free accessory change", "Soft grip handle", "Dust extraction"]
+      },
+      "pricing": {
+        "value": 149.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GMD 110", "multi-tool", "Bosch", "oscillating"]
+    },
+    {
+      "id": "bosch-ghg-500",
+      "name": "Bosch GHG 500 Hot Air Gun",
+      "manufacturer": "Bosch Professional",
+      "category": "heat_guns",
+      "productCode": "06012A7300",
+      "description": "Professional hot air gun for heat applications",
+      "image": "https://bosch-professional.com/ghg-500.jpg",
+      "releaseDate": "2018-02-28",
+      "specifications": {
+        "power": {
+          "value": 1800,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "maxTemperature": {
+          "value": 500,
+          "unit": "°C"
+        },
+        "airFlow": {
+          "value": 200,
+          "unit": "L/min"
+        },
+        "weight": {
+          "value": 0.6,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["2-stage air flow", "Temperature control", "Protective nozzles", "Ergonomic design"]
+      },
+      "pricing": {
+        "value": 99.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GHG 500", "heat gun", "Bosch", "professional"]
+    },
+    {
+      "id": "bosch-pbh-2100-re",
+      "name": "Bosch PBH 2100 RE Rotary Hammer",
+      "manufacturer": "Bosch Professional",
+      "category": "rotary_hammers",
+      "productCode": "06033A3000",
+      "description": "Powerful rotary hammer for drilling and chiseling",
+      "image": "https://bosch-professional.com/pbh-2100-re.jpg",
+      "releaseDate": "2019-12-09",
+      "specifications": {
+        "power": {
+          "value": 710,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "impactEnergy": {
+          "value": 2.1,
+          "unit": "J"
+        },
+        "weight": {
+          "value": 2.5,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 3,
+          "unit": "years"
+        },
+        "certifications": ["CE", "GS"],
+        "features": ["3 operation modes", "Electronic power control", "Vibration control", "Dust extraction"]
+      },
+      "pricing": {
+        "value": 349.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["PBH 2100 RE", "rotary hammer", "Bosch", "drilling"]
+    },
+    {
+      "id": "bosch-ght-2000",
+      "name": "Bosch GHT 2000 Hedge Trimmer",
+      "manufacturer": "Bosch Professional",
+      "category": "hedge_trimmers",
+      "productCode": "06008A4500",
+      "description": "Powerful electric hedge trimmer for professional landscaping",
+      "image": "https://bosch-professional.com/ght-2000.jpg",
+      "releaseDate": "2020-04-07",
+      "specifications": {
+        "power": {
+          "value": 420,
+          "unit": "W"
+        },
+        "voltage": {
+          "value": 230,
+          "unit": "V"
+        },
+        "bladeLength": {
+          "value": 450,
+          "unit": "mm"
+        },
+        "speed": {
+          "value": 3200,
+          "unit": "1/min"
+        },
+        "weight": {
+          "value": 3.1,
+          "unit": "kg"
+        },
+        "warranty": {
+          "value": 2,
+          "unit": "years"
+        },
+        "certifications": ["CE"],
+        "features": ["Variable speed", "Ergonomic handle", "Blade brake", "Gentle cutting action"]
+      },
+      "pricing": {
+        "value": 179.99,
+        "currency": "EUR",
+        "includesTax": true
+      },
+      "availability": "in_stock",
+      "searchIndex": ["GHT 2000", "hedge trimmer", "Bosch", "landscaping"]
+    }
+  ]
+}
