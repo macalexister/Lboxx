@@ -12,6 +12,7 @@
     {
       "id": "bosch-gsr-18v-compact",
       "name": "Bosch GSR 18V-Compact Drill",
+      "image": "https://images.bosch-tti.com/is/image/boschmedia/gsr18vcompact",
       "category": "Power Drills",
       "type": "cordless",
       "description": "Compact and lightweight drill perfect for tight spaces. Ideal for drilling in wood, metal, and plastic.",
@@ -34,6 +35,7 @@
     {
       "id": "bosch-gdr-18v-impact",
       "name": "Bosch GDR 18V-EC Impact Driver",
+      "image": "https://images.bosch-tti.com/is/image/boschmedia/gdr18v",
       "category": "Impact Drivers",
       "type": "cordless",
       "description": "High-torque impact driver for fast driving and drilling. 3-stage electronic speed control.",
@@ -56,6 +58,7 @@
     {
       "id": "bosch-gws-18v-125",
       "name": "Bosch GWS 18V-125 Angle Grinder",
+      "image": "https://images.bosch-tti.com/is/image/boschmedia/gws18v125",
       "category": "Angle Grinders",
       "type": "cordless",
       "description": "Powerful angle grinder for cutting, grinding, and polishing. Compact design with electronic speed control.",
@@ -78,6 +81,7 @@
     {
       "id": "bosch-gbl-18v-120",
       "name": "Bosch GBL 18V-120 Blower",
+      "image": "https://images.bosch-tti.com/is/image/boschmedia/gbl18v120",
       "category": "Blowers",
       "type": "cordless",
       "description": "Compact 18V blower for workshop cleanup and dust removal in tight spaces.",

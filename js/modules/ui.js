@@ -15,7 +15,7 @@ const ui = (() => {
     };
     const getElement = (name) => elements[name] || null;
     const clearResults = () => { if (elements.resultsContainer) elements.resultsContainer.innerHTML = ''; };
-    const showPlaceholder = (message = 'Enter a search term to get started') => {
+    const showPlaceholder = (message = 'Suchbegriff eingeben zum Starten') => {
         clearResults();
         const placeholder = document.createElement('div');
         placeholder.className = 'placeholder';
@@ -23,10 +23,10 @@ const ui = (() => {
         placeholder.innerHTML = `<p>${escapeHtml(message)}</p>`;
         elements.resultsContainer?.appendChild(placeholder);
     };
-    const showLoading = () => showPlaceholder('Loading tools...');
-    const showError = (message = 'An error occurred') => showPlaceholder(`❌ ${message}`);
+    const showLoading = () => showPlaceholder('Werkzeuge werden geladen...');
+    const showError = (message = 'Ein Fehler ist aufgetreten') => showPlaceholder(`❌ ${message}`);
     const showNoResults = (query = '') => {
-        const msg = query ? `No tools found for "${escapeHtml(query)}"` : 'No tools found';
+        const msg = query ? `Keine Werkzeuge gefunden für "${escapeHtml(query)}"` : 'Keine Werkzeuge gefunden';
         showPlaceholder(msg);
     };
     const createToolCard = (tool) => {
