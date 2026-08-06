@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Bosch Professional Tool Finder - Find and organize the perfect tools for your projects">
+    <meta name="theme-color" content="#0066CC">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Bosch Professional Tool Finder</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app" class="app">
+        <header class="header" role="banner">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1 class="app-title">Bosch Professional Tool Finder</h1>
+                    <p class="app-tagline">Organize your tools intelligently with fuzzy search</p>
+                </div>
+            </div>
+        </header>
+        <main id="main-content" class="main-content" role="main">
+            <section class="search-section" aria-labelledby="search-heading">
+                <h2 id="search-heading" class="sr-only">Search Tools</h2>
+                <div class="search-container">
+                    <input type="search" id="search-input" class="search-input" placeholder="Search by tool name, model, or category..." aria-label="Search tools" aria-describedby="search-help">
+                    <div id="search-help" class="search-help"><small>Type to search • Fuzzy matching enabled</small></div>
+                </div>
+                <section class="filter-section" aria-labelledby="filter-heading">
+                    <h3 id="filter-heading" class="filter-heading">Filters</h3>
+                    <div class="filter-group">
+                        <label class="filter-label"><input type="checkbox" id="filter-cordless" class="filter-checkbox" aria-label="Filter cordless tools"><span>Cordless</span></label>
+                        <label class="filter-label"><input type="checkbox" id="filter-compact" class="filter-checkbox" aria-label="Filter compact tools"><span>Compact</span></label>
+                        <label class="filter-label"><input type="checkbox" id="filter-pro" class="filter-checkbox" aria-label="Filter professional grade"><span>Pro Grade</span></label>
+                    </div>
+                </section>
+            </section>
+            <section class="results-section" aria-labelledby="results-heading">
+                <h2 id="results-heading" class="results-heading">Tools</h2>
+                <div id="results-container" class="results-container">
+                    <div class="placeholder" aria-live="polite"><p>Enter a search term to get started</p></div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer" role="contentinfo">
+            <div class="footer-content">
+                <p>&copy; 2026 Bosch Professional. All rights reserved.</p>
+                <p class="footer-meta"><small>Frontend Scaffolding &middot; Sprint 1 Phase 3</small></p>
+            </div>
+        </footer>
+    </div>
+    <script src="lib/fuse.js" defer></script>
+    <script src="main.js" defer></script>
+</body>
+</html>
